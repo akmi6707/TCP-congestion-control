@@ -1,0 +1,14 @@
+# Pinned dependencies for the hybrid ML+RL TCP congestion-control study.
+# Python 3.10 (system interpreter). Install with scripts/setup_env.sh, which
+# uses `pip3 install --target` because `python3 -m venv` cannot bootstrap pip
+# (no ensurepip without root) in the audited environment.
+numpy==2.2.6
+scipy==1.15.2
+matplotlib==3.10.1
+scikit-learn==1.6.1
+pandas==2.3.3
+pytest==8.3.5
+PyYAML==6.0.3
+# CPU-only PyTorch wheel (installed from https://download.pytorch.org/whl/cpu):
+#   torch==2.5.1+cpu
+# (listed separately because it requires the --index-url flag; see setup_env.sh)
