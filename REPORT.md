@@ -213,7 +213,11 @@ BBR-like 2.72. Time-varying bandwidth (sine): hybrid 17.8 vs Vegas 19.1.
 **Workload (short flows):** long-flow goodput hybrid 18.82 (Reno 13.11),
 but short-flow mean FCT hybrid 0.56 s vs Reno 0.27 s - an honest
 utilization-vs-latency trade-off: full-pipe controllers keep a deeper
-queue, delaying short transfers (BBR-like shows the same 0.55 s).
+queue, delaying short transfers (BBR-like shows the same 0.55 s). In this
+suite hybrid's p95 RTT (93.2 ms) exceeds BBR-like's (81.2 ms) by 15% -
+beyond the pre-registered 10% guardrail tolerance; the workload suite is
+descriptive (no confirmatory claim), but this is a real weakness of the
+hybrid under mixed workloads, consistent with its deeper standing queue.
 
 **RQ6 - computational costs (measured):** inference 0.11 ms per control
 step (RL-only, DQN 164 KB) vs **6.5 ms (hybrid: DQN + 3 HGB models, 2.1 MB
