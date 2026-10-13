@@ -316,6 +316,22 @@ def make_learning_controller_factory(name: str, cfg: Optional[dict] = None,
     """
     merged = _merge_cfg(cfg)
     policy_act = None
+    if name in ("rl_only", "hybrid"):
+        # BOTH policy-driven variants must wire the DQN into act_fn.
+        # (An earlier version hooked the policy only for rl_only, leaving
+        # hybrid's act_fn None -> the controller silently fell back to
+        # RANDOM actions; found via identical validation scores across
+        # independent hybrid training runs - Phase-4 bug.)
+        agent = policy_agent
+        if agent is None:
+            if policy_path is None:
+                raise ValueError(f"{name} requires policy_agent or policy_path")
+            from ..models.dqn import DQNAgent
+            agent = DQNAgent.load(policy_path)
+        agent.rng.seed(seed)
+
+        def policy_act(state, _ag=agent, _eps=epsilon):
+            return _ag.act(state, _eps)
     if name == "hybrid":
         if ml_model is None:
             from ..models.ml_predictor import MLPredictor
@@ -331,19 +347,7 @@ def make_learning_controller_factory(name: str, cfg: Optional[dict] = None,
         def build(flow_id, _ml=ml_model):
             return MLOnlyController(flow_id, _ml, merged, seed=seed + flow_id)
         return ControllerFactory(build)
-    elif name in ("rl_only", "random"):
-        if name == "rl_only":
-            agent = policy_agent
-            if agent is None:
-                if policy_path is None:
-                    raise ValueError("rl_only requires policy_agent or policy_path")
-                from ..models.dqn import DQNAgent
-                agent = DQNAgent.load(policy_path)
-            agent.rng.seed(seed)
-
-            def policy_act(state, _ag=agent, _eps=epsilon):
-                return _ag.act(state, _eps)
-    else:
+    elif name not in ("rl_only", "hybrid", "random"):
         raise ValueError(f"unknown learning controller: {name!r}")
 
     cls = {"random": RandomController, "rl_only": RLController,

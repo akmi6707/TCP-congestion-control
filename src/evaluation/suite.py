@@ -41,6 +41,7 @@ def _worker(args) -> Dict:
         reward_weights=spec.get("reward_weights"),
         save_series=bool(spec.get("save_series", False)),
         code_version=spec.get("code_version", ""),
+        persist=False,
     )
 
 

@@ -38,7 +38,8 @@ def run_one(scenario: Dict, controller: str, seed: int,
             epsilon: float = 0.0,
             reward_weights: Optional[Dict] = None,
             save_series: bool = False,
-            code_version: str = "") -> Dict:
+            code_version: str = "",
+            persist: bool = True) -> Dict:
     """Execute one run and return the record dict (also persisted)."""
     run_id = uio.new_run_id("run")
     record = {
@@ -92,10 +93,11 @@ def run_one(scenario: Dict, controller: str, seed: int,
         record["error"] = f"{type(exc).__name__}: {exc}"
         record["traceback"] = traceback.format_exc(limit=8)
         record["wall_time_s"] = time.perf_counter() - t0
-    # persist (parent process does the writing when run via suites; here we
-    # write immediately so standalone use also persists)
-    try:
-        uio.write_run_record(record, results_dir)
-    except Exception as exc:  # noqa: BLE001
-        record["persist_error"] = str(exc)
+    # standalone use persists immediately; suite workers return records and
+    # the parent persists them sequentially (single-writer, race-free)
+    if persist:
+        try:
+            uio.write_run_record(record, results_dir)
+        except Exception as exc:  # noqa: BLE001
+            record["persist_error"] = str(exc)
     return record

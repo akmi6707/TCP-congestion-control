@@ -84,6 +84,36 @@ def test_hybrid_requires_ml_model():
         make_learning_controller_factory("no_such_controller")
 
 
+def test_hybrid_wires_policy_act_fn(tmp_path):
+    """Regression: the hybrid factory must connect the DQN policy to the
+    controller's act_fn (an earlier version left act_fn None, silently
+    falling back to random actions)."""
+    from src.models.dqn import DQNAgent
+    from src.models.ml_predictor import MLPredictor
+    import numpy as np
+    # tiny ML model
+    rng = np.random.default_rng(0)
+    X = rng.random((30, 18)).astype(np.float32)
+    Y = {"qd_ms": rng.random(30), "loss_sig": rng.random(30) * 0.01,
+         "rate_mbps": rng.random(30) * 10}
+    pred = MLPredictor()
+    pred.fit(X, Y)
+    ml_path = tmp_path / "ml.joblib"
+    pred.save(ml_path)
+    dqn_path = tmp_path / "dqn.pt"
+    DQNAgent(21, N_ACTIONS, seed=0).save(dqn_path)
+
+    factory = make_learning_controller_factory(
+        "hybrid", policy_path=str(dqn_path), ml_path=str(ml_path))
+    ctrl = factory.build_fn(0)
+    assert ctrl.act_fn is not None, "hybrid controller must use the DQN policy"
+    a = ctrl.act_fn(np.zeros(21, dtype=np.float32))
+    assert 0 <= a < N_ACTIONS
+    # and the factory-built controller runs in the simulator
+    res = simulate(tiny_scenario, factory)
+    assert res.per_flow[0]["rcv_inorder_pkts"] > 0
+
+
 def test_rl_only_with_random_policy_runs(tiny_scenario, tmp_path):
     from src.models.dqn import DQNAgent
     agent = DQNAgent(18, N_ACTIONS, seed=0)
