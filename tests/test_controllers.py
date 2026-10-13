@@ -84,7 +84,7 @@ def test_hybrid_requires_ml_model():
         make_learning_controller_factory("no_such_controller")
 
 
-def test_hybrid_wires_policy_act_fn(tmp_path):
+def test_hybrid_wires_policy_act_fn(tiny_scenario, tmp_path):
     """Regression: the hybrid factory must connect the DQN policy to the
     controller's act_fn (an earlier version left act_fn None, silently
     falling back to random actions)."""
