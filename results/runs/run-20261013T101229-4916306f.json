@@ -1,0 +1,92 @@
+{
+ "code_version": "",
+ "controller": "rl_only",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 0.779102003434673,
+  "mean_ms": 0.14289383572877576,
+  "n_steps": 737,
+  "p95_ms": 0.15308719885069877
+ },
+ "metrics": {
+  "cwnd_osc": 0.44734265601350043,
+  "fast_retx_events": 21,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   15.375422222222221
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 15.375422222222221,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0005047955577990914,
+  "lost_pkts": 13.0,
+  "mean_qd_ms": 32.419340519974774,
+  "mean_rtt_ms": 92.71934051997404,
+  "median_rtt_ms": 88.39999999999964,
+  "n_rtt_samples": 3154,
+  "n_short_flows": 0,
+  "p95_qd_ms": 124.07000000000023,
+  "p95_rtt_ms": 184.36999999999952,
+  "partial_retx_events": 28,
+  "queue_occ_mean_pkts": 27.88222222222133,
+  "queue_occ_p95_pkts": 44.73416666666598,
+  "rate_stability": 0.41304483534852254,
+  "recovery_times_s": [
+   2.692,
+   2.688
+  ],
+  "retx_rate": 0.01649891454509572,
+  "rto_events": 4,
+  "sent_pkts": 25753.0,
+  "throughput_mbps": 15.638222222222222
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 1,
+  "policy_path": "models/dqn_rl_only.pt"
+ },
+ "run_id": "run-20261013T101229-4916306f",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [
+   {
+    "loss_rate": 0.01,
+    "t_s": 8.0
+   },
+   {
+    "loss_rate": 0.0,
+    "t_s": 12.0
+   }
+  ],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_loss_spike",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "series_path": "results/series/run-20261013T101229-4916306f.json",
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 0.35258101399813313
+}

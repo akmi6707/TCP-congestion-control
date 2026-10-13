@@ -1,0 +1,89 @@
+{
+ "code_version": "",
+ "controller": "rl_only_nodelay",
+ "duration_s": 20,
+ "experiment": "workload_20261013T154235",
+ "inference": {
+  "max_ms": 0.18980399909196422,
+  "mean_ms": 0.08591837477008339,
+  "n_steps": 443,
+  "p95_ms": 0.10644600188243203
+ },
+ "metrics": {
+  "cwnd_osc": 1.9907388496903318,
+  "fast_retx_events": 3,
+  "fct_mean_s": 0.350322536155214,
+  "fct_median_s": 0.30878491843196026,
+  "fct_p95_s": 0.5712111894244748,
+  "flow_goodput_mbps": [
+   2.2101155555555554
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 2.2101155555555554,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.19975872122247915,
+  "lost_pkts": 1987.0,
+  "mean_qd_ms": 874.2388065678821,
+  "mean_rtt_ms": 934.5388065678816,
+  "median_rtt_ms": 92.70000000000073,
+  "n_rtt_samples": 2497,
+  "n_short_flows": 8,
+  "p95_qd_ms": 8182.840000000001,
+  "p95_rtt_ms": 8243.14,
+  "partial_retx_events": 217,
+  "queue_occ_mean_pkts": 16.139074074074042,
+  "queue_occ_p95_pkts": 144.9633333333324,
+  "rate_stability": 2.785738197340573,
+  "recovery_times_s": [],
+  "retx_rate": 0.41387894818733467,
+  "rto_events": 262,
+  "sent_pkts": 9947.0,
+  "throughput_mbps": 3.6305333333333336
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 9,
+  "policy_path": "models/dqn_rl_only_nodelay.pt"
+ },
+ "run_id": "run-20261013T101238-b8f1713c",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "wl_short_flows",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": {
+   "n": 8,
+   "size_pkts_range": [
+    20,
+    150
+   ],
+   "start_s_range": [
+    2.0,
+    16.0
+   ]
+  },
+  "warmup_s": 2.0
+ },
+ "seed": 0,
+ "status": "ok",
+ "suite": "workload",
+ "training_time_s": null,
+ "wall_time_s": 0.2816099789997679
+}

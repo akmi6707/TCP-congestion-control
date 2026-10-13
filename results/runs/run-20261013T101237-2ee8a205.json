@@ -1,0 +1,90 @@
+{
+ "code_version": "",
+ "controller": "rl_only",
+ "duration_s": 20,
+ "experiment": "workload_20261013T154235",
+ "inference": {
+  "max_ms": 0.7515309989685193,
+  "mean_ms": 0.08210601429890749,
+  "n_steps": 919,
+  "p95_ms": 0.09902509918902068
+ },
+ "metrics": {
+  "cwnd_osc": 0.13145265312338383,
+  "fast_retx_events": 0,
+  "fct_mean_s": 0.5139975361552136,
+  "fct_median_s": 0.5421108810593169,
+  "fct_p95_s": 0.6788057356469986,
+  "flow_goodput_mbps": [
+   18.721093333333332
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 18.721093333333332,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 25.87961075069501,
+  "mean_rtt_ms": 86.17961075069427,
+  "median_rtt_ms": 88.39999999999964,
+  "n_rtt_samples": 3237,
+  "n_short_flows": 8,
+  "p95_qd_ms": 33.120000000000054,
+  "p95_rtt_ms": 93.41999999999933,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 39.64481481481346,
+  "queue_occ_p95_pkts": 51.955833333332116,
+  "rate_stability": 0.0578889046563937,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 31333.0,
+  "throughput_mbps": 19.270702222222223
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 9,
+  "policy_path": "models/dqn_rl_only.pt"
+ },
+ "run_id": "run-20261013T101237-2ee8a205",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "wl_short_flows",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": {
+   "n": 8,
+   "size_pkts_range": [
+    20,
+    150
+   ],
+   "start_s_range": [
+    2.0,
+    16.0
+   ]
+  },
+  "warmup_s": 2.0
+ },
+ "seed": 0,
+ "series_path": "results/series/run-20261013T101237-2ee8a205.json",
+ "status": "ok",
+ "suite": "workload",
+ "training_time_s": null,
+ "wall_time_s": 1.0719946929966682
+}

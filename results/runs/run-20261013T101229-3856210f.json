@@ -1,0 +1,90 @@
+{
+ "code_version": "",
+ "controller": "ml_only",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 9.358898001664784,
+  "mean_ms": 6.419038962567017,
+  "n_steps": 723,
+  "p95_ms": 8.826982799655523
+ },
+ "metrics": {
+  "cwnd_osc": 0.4360919471629199,
+  "fast_retx_events": 115,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   3.794702222222222
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 3.794702222222222,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0015829046299960427,
+  "lost_pkts": 12.0,
+  "mean_qd_ms": 19.484792079208475,
+  "mean_rtt_ms": 79.78479207920775,
+  "median_rtt_ms": 62.80000000000018,
+  "n_rtt_samples": 2525,
+  "n_short_flows": 0,
+  "p95_qd_ms": 64.96000000000016,
+  "p95_rtt_ms": 125.25999999999944,
+  "partial_retx_events": 122,
+  "queue_occ_mean_pkts": 0.2687962962962962,
+  "queue_occ_p95_pkts": 0.9524999999999991,
+  "rate_stability": 0.5012417654455797,
+  "recovery_times_s": [
+   19.992,
+   19.988
+  ],
+  "retx_rate": 0.1535301278149726,
+  "rto_events": 0,
+  "sent_pkts": 7581.0,
+  "throughput_mbps": 4.441644444444444
+ },
+ "model_info": {
+  "first": {
+   "ml_model_size_bytes": 1910800,
+   "name": "ml_only"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1
+ },
+ "run_id": "run-20261013T101229-3856210f",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [
+   {
+    "loss_rate": 0.01,
+    "t_s": 8.0
+   },
+   {
+    "loss_rate": 0.0,
+    "t_s": 12.0
+   }
+  ],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_loss_spike",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 4.8521232640050584
+}

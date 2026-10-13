@@ -1,0 +1,90 @@
+{
+ "code_version": "",
+ "controller": "ml_only",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 6.940972998563666,
+  "mean_ms": 4.328386375324472,
+  "n_steps": 714,
+  "p95_ms": 4.565418052879977
+ },
+ "metrics": {
+  "cwnd_osc": 0.3735707054274523,
+  "fast_retx_events": 166,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   3.7278666666666664
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 3.7278666666666664,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0005876821814762576,
+  "lost_pkts": 5.0,
+  "mean_qd_ms": 31.87686567164241,
+  "mean_rtt_ms": 92.17686567164168,
+  "median_rtt_ms": 96.29999999999927,
+  "n_rtt_samples": 3484,
+  "n_short_flows": 0,
+  "p95_qd_ms": 69.20000000000073,
+  "p95_rtt_ms": 129.5,
+  "partial_retx_events": 172,
+  "queue_occ_mean_pkts": 0.7653703703703703,
+  "queue_occ_p95_pkts": 2.118333333333332,
+  "rate_stability": 0.455331819781841,
+  "recovery_times_s": [
+   19.992,
+   19.988
+  ],
+  "retx_rate": 0.31296296296296294,
+  "rto_events": 0,
+  "sent_pkts": 8508.0,
+  "throughput_mbps": 5.032782222222222
+ },
+ "model_info": {
+  "first": {
+   "ml_model_size_bytes": 1910800,
+   "name": "ml_only"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1
+ },
+ "run_id": "run-20261013T101229-396f01af",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [
+   {
+    "loss_rate": 0.01,
+    "t_s": 8.0
+   },
+   {
+    "loss_rate": 0.0,
+    "t_s": 12.0
+   }
+  ],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_loss_spike",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 3,
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 3.255924748002144
+}

@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "generalization_20261013T154145",
+ "inference": {
+  "max_ms": 9.412887993676122,
+  "mean_ms": 5.973761843077981,
+  "n_steps": 555,
+  "p95_ms": 8.686045902140904
+ },
+ "metrics": {
+  "cwnd_osc": 0.3830871703139547,
+  "fast_retx_events": 110,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   1.868151111111111
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 1.868151111111111,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.009752438109527382,
+  "lost_pkts": 39.0,
+  "mean_qd_ms": 28.26537764350518,
+  "mean_rtt_ms": 88.56537764350446,
+  "median_rtt_ms": 62.100000000000364,
+  "n_rtt_samples": 1655,
+  "n_short_flows": 0,
+  "p95_qd_ms": 112.40000000000146,
+  "p95_rtt_ms": 172.70000000000073,
+  "partial_retx_events": 94,
+  "queue_occ_mean_pkts": 0.1768518518518518,
+  "queue_occ_p95_pkts": 0.8016666666666658,
+  "rate_stability": 0.49245067572725226,
+  "recovery_times_s": [],
+  "retx_rate": 0.25794274929223027,
+  "rto_events": 0,
+  "sent_pkts": 3999.0,
+  "throughput_mbps": 2.3327555555555555
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101207-0ff15dfe",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.01,
+  "n_flows": 1,
+  "name": "gen_bw20_rtt60_l10",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 0,
+ "series_path": "results/series/run-20261013T101207-0ff15dfe.json",
+ "status": "ok",
+ "suite": "generalization",
+ "training_time_s": null,
+ "wall_time_s": 3.4919922609988134
+}

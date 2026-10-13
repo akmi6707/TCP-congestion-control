@@ -1,0 +1,92 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "workload_20261013T154235",
+ "inference": {
+  "max_ms": 8.948123002483044,
+  "mean_ms": 5.102484601035383,
+  "n_steps": 955,
+  "p95_ms": 7.996788198215654
+ },
+ "metrics": {
+  "cwnd_osc": 0.10052065342159325,
+  "fast_retx_events": 0,
+  "fct_mean_s": 0.6442975361552141,
+  "fct_median_s": 0.6725111571701309,
+  "fct_p95_s": 0.8683754856440257,
+  "flow_goodput_mbps": [
+   18.795066666666667
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 18.795066666666667,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 21.698424331256824,
+  "mean_rtt_ms": 81.99842433125679,
+  "median_rtt_ms": 85.19999999999982,
+  "n_rtt_samples": 2729,
+  "n_short_flows": 8,
+  "p95_qd_ms": 31.59999999999968,
+  "p95_rtt_ms": 91.89999999999964,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 31.30675925925907,
+  "queue_occ_p95_pkts": 46.61499999999985,
+  "rate_stability": 0.04236133377830283,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 31461.0,
+  "throughput_mbps": 19.344675555555558
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 9,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101237-34aada91",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "wl_short_flows",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": {
+   "n": 8,
+   "size_pkts_range": [
+    20,
+    150
+   ],
+   "start_s_range": [
+    2.0,
+    16.0
+   ]
+  },
+  "warmup_s": 2.0
+ },
+ "seed": 0,
+ "series_path": "results/series/run-20261013T101237-34aada91.json",
+ "status": "ok",
+ "suite": "workload",
+ "training_time_s": null,
+ "wall_time_s": 6.847944011999061
+}

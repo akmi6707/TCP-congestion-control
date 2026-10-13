@@ -1,0 +1,74 @@
+{
+ "code_version": "",
+ "controller": "reno",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "n_steps": 0
+ },
+ "metrics": {
+  "cwnd_osc": 0.32749995565802653,
+  "fast_retx_events": 6,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   46.87378666666667
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 46.87378666666667,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.003448004614819865,
+  "lost_pkts": 263.0,
+  "mean_qd_ms": 20.810233971436567,
+  "mean_rtt_ms": 40.930233971436465,
+  "median_rtt_ms": 39.839999999999236,
+  "n_rtt_samples": 3291,
+  "n_short_flows": 0,
+  "p95_qd_ms": 38.39999999999691,
+  "p95_rtt_ms": 58.5199999999968,
+  "partial_retx_events": 28,
+  "queue_occ_mean_pkts": 70.47458333333007,
+  "queue_occ_p95_pkts": 147.71583333332384,
+  "rate_stability": 0.09614827054807397,
+  "recovery_times_s": [],
+  "retx_rate": 0.007768734806045873,
+  "rto_events": 2,
+  "sent_pkts": 76276.0,
+  "throughput_mbps": 46.895848888888885
+ },
+ "model_info": {
+  "first": {
+   "name": "reno"
+  },
+  "n_controllers": 1
+ },
+ "run_id": "run-20261013T101052-14b1db61",
+ "scenario": {
+  "bandwidth_mbps": 50,
+  "base_rtt_ms": 20,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "bw50_rtt20_q2_f1",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "series_path": "results/series/run-20261013T101052-14b1db61.json",
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 0.11006810000253608
+}

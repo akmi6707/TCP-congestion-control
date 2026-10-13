@@ -1,0 +1,89 @@
+{
+ "code_version": "",
+ "controller": "rl_only_nodelay",
+ "duration_s": 20,
+ "experiment": "workload_20261013T154235",
+ "inference": {
+  "max_ms": 0.26184799935435876,
+  "mean_ms": 0.15176934334036893,
+  "n_steps": 443,
+  "p95_ms": 0.18666290125111118
+ },
+ "metrics": {
+  "cwnd_osc": 2.057180246691854,
+  "fast_retx_events": 2,
+  "fct_mean_s": 0.2705978187476867,
+  "fct_median_s": 0.28483821972860146,
+  "fct_p95_s": 0.3449240377668792,
+  "flow_goodput_mbps": [
+   2.086177777777778
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 2.086177777777778,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.19253351057937299,
+  "lost_pkts": 1738.0,
+  "mean_qd_ms": 936.4763099955971,
+  "mean_rtt_ms": 996.7763099955966,
+  "median_rtt_ms": 94.5,
+  "n_rtt_samples": 2271,
+  "n_short_flows": 8,
+  "p95_qd_ms": 8174.1,
+  "p95_rtt_ms": 8234.4,
+  "partial_retx_events": 229,
+  "queue_occ_mean_pkts": 13.667685185185155,
+  "queue_occ_p95_pkts": 126.20749999999954,
+  "rate_stability": 2.9811140343216653,
+  "recovery_times_s": [],
+  "retx_rate": 0.424294562973159,
+  "rto_events": 267,
+  "sent_pkts": 9027.0,
+  "throughput_mbps": 3.195128888888889
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 9,
+  "policy_path": "models/dqn_rl_only_nodelay.pt"
+ },
+ "run_id": "run-20261013T101238-3d178f22",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "wl_short_flows",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": {
+   "n": 8,
+   "size_pkts_range": [
+    20,
+    150
+   ],
+   "start_s_range": [
+    2.0,
+    16.0
+   ]
+  },
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "status": "ok",
+ "suite": "workload",
+ "training_time_s": null,
+ "wall_time_s": 0.49179144200024894
+}

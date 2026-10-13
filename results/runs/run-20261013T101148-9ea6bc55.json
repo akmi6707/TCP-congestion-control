@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "generalization_20261013T154145",
+ "inference": {
+  "max_ms": 7.9520859944750555,
+  "mean_ms": 4.672819365897002,
+  "n_steps": 795,
+  "p95_ms": 4.986117700173054
+ },
+ "metrics": {
+  "cwnd_osc": 0.20915938394404765,
+  "fast_retx_events": 0,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   92.17401777777778
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 92.17401777777778,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 19.565544697792184,
+  "mean_rtt_ms": 79.62554469779214,
+  "median_rtt_ms": 86.5,
+  "n_rtt_samples": 2763,
+  "n_short_flows": 0,
+  "p95_qd_ms": 29.800000000000637,
+  "p95_rtt_ms": 89.86000000000058,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 133.90916666666553,
+  "queue_occ_p95_pkts": 215.80916666666636,
+  "rate_stability": 0.15400751513657734,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 144724.0,
+  "throughput_mbps": 92.17401777777778
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101148-9ea6bc55",
+ "scenario": {
+  "bandwidth_mbps": 100,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "gen_bw100_rtt60_q2",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "series_path": "results/series/run-20261013T101148-9ea6bc55.json",
+ "status": "ok",
+ "suite": "generalization",
+ "training_time_s": null,
+ "wall_time_s": 4.3000952689981204
+}

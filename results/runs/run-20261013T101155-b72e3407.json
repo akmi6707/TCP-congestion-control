@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "generalization_20261013T154145",
+ "inference": {
+  "max_ms": 9.672200998465996,
+  "mean_ms": 7.94968260704251,
+  "n_steps": 654,
+  "p95_ms": 9.266693348035915
+ },
+ "metrics": {
+  "cwnd_osc": 0.2037688862075077,
+  "fast_retx_events": 67,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   3.3846044444444443
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 3.3846044444444443,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 149.51321260898743,
+  "mean_rtt_ms": 350.71321260898725,
+  "median_rtt_ms": 331.39999999999964,
+  "n_rtt_samples": 2982,
+  "n_short_flows": 0,
+  "p95_qd_ms": 316.79000000000013,
+  "p95_rtt_ms": 517.9899999999999,
+  "partial_retx_events": 107,
+  "queue_occ_mean_pkts": 16.48601851851851,
+  "queue_occ_p95_pkts": 33.92333333333326,
+  "rate_stability": 0.3670173614058841,
+  "recovery_times_s": [],
+  "retx_rate": 0.2855618776671408,
+  "rto_events": 1,
+  "sent_pkts": 7230.0,
+  "throughput_mbps": 4.341715555555556
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101155-b72e3407",
+ "scenario": {
+  "bandwidth_mbps": 5,
+  "base_rtt_ms": 200,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "gen_bw5_rtt200_q2",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 4,
+ "series_path": "results/series/run-20261013T101155-b72e3407.json",
+ "status": "ok",
+ "suite": "generalization",
+ "training_time_s": null,
+ "wall_time_s": 6.62178767399746
+}

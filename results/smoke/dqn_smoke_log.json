@@ -1,0 +1,84 @@
+{
+ "variant": "rl_only",
+ "seed": 0,
+ "state_dim": 18,
+ "n_episodes": 6,
+ "episodes": [
+  {
+   "ep": 0,
+   "goodput_mbps": 1.94764,
+   "bandwidth_mbps": 6.999,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.003487,
+   "mean_reward": 0.9082498504609765,
+   "eps": 1.0,
+   "env_steps": 315,
+   "train_steps": 0,
+   "wall_s": 0.06019188899881556
+  },
+  {
+   "ep": 1,
+   "goodput_mbps": 13.1619,
+   "bandwidth_mbps": 20.517,
+   "n_flows": 2,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 2.7884011647121207,
+   "eps": 0.998803,
+   "env_steps": 1097,
+   "train_steps": 0,
+   "wall_s": 0.11078074900069623
+  },
+  {
+   "ep": 2,
+   "goodput_mbps": 8.275279999999999,
+   "bandwidth_mbps": 11.613,
+   "n_flows": 4,
+   "loss_rate_cfg": 0.004402,
+   "mean_reward": 0.7395783999194099,
+   "eps": 0.9958314,
+   "env_steps": 1777,
+   "train_steps": 0,
+   "wall_s": 0.1487165479993564
+  },
+  {
+   "ep": 3,
+   "goodput_mbps": 2.9127,
+   "bandwidth_mbps": 13.4,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 0.9340616116155248,
+   "eps": 0.9932474,
+   "env_steps": 2116,
+   "train_steps": 59,
+   "wall_s": 0.1155843670021568
+  },
+  {
+   "ep": 4,
+   "goodput_mbps": 1.3432,
+   "bandwidth_mbps": 5.766,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 0.9162956354806253,
+   "eps": 0.9919592,
+   "env_steps": 2445,
+   "train_steps": 223,
+   "wall_s": 0.2171517339993443
+  },
+  {
+   "ep": 5,
+   "goodput_mbps": 1.69798,
+   "bandwidth_mbps": 24.264,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 0.534697949328835,
+   "eps": 0.990709,
+   "env_steps": 2758,
+   "train_steps": 380,
+   "wall_s": 0.2117541080006049
+  }
+ ],
+ "code_version": "26ecc94f3998a15c7815879c686474df41f00519",
+ "total_time_s": 0.8754465579986572,
+ "final_env_steps": 2758,
+ "final_train_steps": 380
+}

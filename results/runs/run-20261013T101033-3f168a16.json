@@ -1,0 +1,80 @@
+{
+ "code_version": "",
+ "controller": "rl_only",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "max_ms": 0.1379570021526888,
+  "mean_ms": 0.06464239839591425,
+  "n_steps": 550,
+  "p95_ms": 0.0711954980943119
+ },
+ "metrics": {
+  "cwnd_osc": 0.22482573653882693,
+  "fast_retx_events": 0,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   1.8700977777777779
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 1.8700977777777779,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 10.55542590431761,
+  "mean_rtt_ms": 151.7554259043174,
+  "median_rtt_ms": 144.80000000000018,
+  "n_rtt_samples": 857,
+  "n_short_flows": 0,
+  "p95_qd_ms": 39.19999999999982,
+  "p95_rtt_ms": 180.39999999999964,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 2.054074074074073,
+  "queue_occ_p95_pkts": 7.4560416666666605,
+  "rate_stability": 0.5561013181113872,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 3187.0,
+  "throughput_mbps": 1.8700977777777779
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 1,
+  "policy_path": "models/dqn_rl_only.pt"
+ },
+ "run_id": "run-20261013T101033-3f168a16",
+ "scenario": {
+  "bandwidth_mbps": 5,
+  "base_rtt_ms": 140,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "bw5_rtt140_q2_f1",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 0,
+ "series_path": "results/series/run-20261013T101033-3f168a16.json",
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 0.1193700119983987
+}

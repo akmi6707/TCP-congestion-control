@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "max_ms": 5.880536999029573,
+  "mean_ms": 4.541142630000781,
+  "n_steps": 692,
+  "p95_ms": 4.732386998148286
+ },
+ "metrics": {
+  "cwnd_osc": 0.47558678337102644,
+  "fast_retx_events": 56,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   10.759226666666667
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 10.759226666666667,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0007497054728499518,
+  "lost_pkts": 14.0,
+  "mean_qd_ms": 29.608841234011262,
+  "mean_rtt_ms": 89.90884123401054,
+  "median_rtt_ms": 65.0,
+  "n_rtt_samples": 2658,
+  "n_short_flows": 0,
+  "p95_qd_ms": 128.60000000000036,
+  "p95_rtt_ms": 188.89999999999964,
+  "partial_retx_events": 55,
+  "queue_occ_mean_pkts": 4.679259259259255,
+  "queue_occ_p95_pkts": 15.652499999999973,
+  "rate_stability": 0.4986599296050639,
+  "recovery_times_s": [],
+  "retx_rate": 0.045050086742403045,
+  "rto_events": 2,
+  "sent_pkts": 18674.0,
+  "throughput_mbps": 11.244595555555556
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101132-023323b4",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.001,
+  "n_flows": 1,
+  "name": "bw20_rtt60_q2_f1_l01",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 4,
+ "series_path": "results/series/run-20261013T101132-023323b4.json",
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 3.3139115599988145
+}

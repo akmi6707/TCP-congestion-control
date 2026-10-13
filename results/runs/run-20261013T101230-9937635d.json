@@ -1,0 +1,94 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 8.23761799983913,
+  "mean_ms": 5.8476340994405165,
+  "n_steps": 735,
+  "p95_ms": 7.965886300371494
+ },
+ "metrics": {
+  "cwnd_osc": 0.4592062167550357,
+  "fast_retx_events": 17,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   15.03216
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 15.03216,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.00043711504073117426,
+  "lost_pkts": 11.0,
+  "mean_qd_ms": 25.826589595376404,
+  "mean_rtt_ms": 86.12658959537568,
+  "median_rtt_ms": 80.79999999999995,
+  "n_rtt_samples": 2768,
+  "n_short_flows": 0,
+  "p95_qd_ms": 110.59000000000165,
+  "p95_rtt_ms": 170.89000000000092,
+  "partial_retx_events": 18,
+  "queue_occ_mean_pkts": 18.676296296296226,
+  "queue_occ_p95_pkts": 38.40083333333297,
+  "rate_stability": 0.4343936252921475,
+  "recovery_times_s": [
+   2.792,
+   2.788
+  ],
+  "retx_rate": 0.013165311216684112,
+  "rto_events": 2,
+  "sent_pkts": 25165.0,
+  "throughput_mbps": 15.237208888888889
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101230-9937635d",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [
+   {
+    "loss_rate": 0.01,
+    "t_s": 8.0
+   },
+   {
+    "loss_rate": 0.0,
+    "t_s": 12.0
+   }
+  ],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_loss_spike",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "series_path": "results/series/run-20261013T101230-9937635d.json",
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 4.521357887999329
+}

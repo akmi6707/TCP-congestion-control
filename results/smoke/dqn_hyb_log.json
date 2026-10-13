@@ -1,0 +1,108 @@
+{
+ "variant": "hybrid",
+ "seed": 0,
+ "state_dim": 21,
+ "n_episodes": 8,
+ "episodes": [
+  {
+   "ep": 0,
+   "goodput_mbps": 4.1245,
+   "bandwidth_mbps": 6.999,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.003487,
+   "mean_reward": 1.9929880595199208,
+   "eps": 1.0,
+   "env_steps": 374,
+   "train_steps": 0,
+   "wall_s": 1.0476587350021873
+  },
+  {
+   "ep": 1,
+   "goodput_mbps": 12.85238,
+   "bandwidth_mbps": 20.517,
+   "n_flows": 2,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 0.759479535193254,
+   "eps": 0.9985788,
+   "env_steps": 1088,
+   "train_steps": 0,
+   "wall_s": 2.033592251002119
+  },
+  {
+   "ep": 2,
+   "goodput_mbps": 9.76156,
+   "bandwidth_mbps": 11.613,
+   "n_flows": 4,
+   "loss_rate_cfg": 0.004402,
+   "mean_reward": -1.2987523124142462,
+   "eps": 0.9958656,
+   "env_steps": 1874,
+   "train_steps": 0,
+   "wall_s": 2.8359491909977805
+  },
+  {
+   "ep": 3,
+   "goodput_mbps": 4.41212,
+   "bandwidth_mbps": 13.4,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 2.671752310490335,
+   "eps": 0.9928788,
+   "env_steps": 2231,
+   "train_steps": 116,
+   "wall_s": 1.1475159329966118
+  },
+  {
+   "ep": 4,
+   "goodput_mbps": 3.0733,
+   "bandwidth_mbps": 5.766,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 1.6797431921769876,
+   "eps": 0.9915222,
+   "env_steps": 2608,
+   "train_steps": 305,
+   "wall_s": 1.2678106700004719
+  },
+  {
+   "ep": 5,
+   "goodput_mbps": 13.06992,
+   "bandwidth_mbps": 24.264,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": 2.5127520912725907,
+   "eps": 0.9900896,
+   "env_steps": 2995,
+   "train_steps": 498,
+   "wall_s": 1.2893264790000103
+  },
+  {
+   "ep": 6,
+   "goodput_mbps": 6.33494,
+   "bandwidth_mbps": 9.898,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.0,
+   "mean_reward": -0.39782929731589145,
+   "eps": 0.988619,
+   "env_steps": 3316,
+   "train_steps": 659,
+   "wall_s": 1.1623317980011052
+  },
+  {
+   "ep": 7,
+   "goodput_mbps": 17.9945,
+   "bandwidth_mbps": 57.912,
+   "n_flows": 1,
+   "loss_rate_cfg": 0.00061,
+   "mean_reward": 4.037935185993356,
+   "eps": 0.9873992,
+   "env_steps": 3581,
+   "train_steps": 791,
+   "wall_s": 0.9926296530029504
+  }
+ ],
+ "code_version": "26ecc94f3998a15c7815879c686474df41f00519",
+ "total_time_s": 11.786499977111816,
+ "final_env_steps": 3581,
+ "final_train_steps": 791
+}

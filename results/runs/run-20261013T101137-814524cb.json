@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "max_ms": 5.800978004117496,
+  "mean_ms": 4.64489860218973,
+  "n_steps": 578,
+  "p95_ms": 5.008687951703905
+ },
+ "metrics": {
+  "cwnd_osc": 0.5430973235850981,
+  "fast_retx_events": 89,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   4.21064
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 4.21064,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0037735849056603774,
+  "lost_pkts": 30.0,
+  "mean_qd_ms": 27.385817805384118,
+  "mean_rtt_ms": 87.5058178053831,
+  "median_rtt_ms": 61.43999999999869,
+  "n_rtt_samples": 1932,
+  "n_short_flows": 0,
+  "p95_qd_ms": 110.00000000000041,
+  "p95_rtt_ms": 170.11999999999938,
+  "partial_retx_events": 74,
+  "queue_occ_mean_pkts": 0.09162037037037034,
+  "queue_occ_p95_pkts": 0.7108333333333324,
+  "rate_stability": 0.5472697561552008,
+  "recovery_times_s": [],
+  "retx_rate": 0.1319948739854763,
+  "rto_events": 2,
+  "sent_pkts": 7950.0,
+  "throughput_mbps": 4.727804444444444
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101137-814524cb",
+ "scenario": {
+  "bandwidth_mbps": 50,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.005,
+  "n_flows": 1,
+  "name": "bw50_rtt60_q2_f1_l05",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "series_path": "results/series/run-20261013T101137-814524cb.json",
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 2.8252312050026376
+}

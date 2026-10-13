@@ -1,0 +1,81 @@
+{
+ "code_version": "",
+ "controller": "vegas_like",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "n_steps": 0
+ },
+ "metrics": {
+  "cwnd_osc": 0.8477650613097394,
+  "fast_retx_events": 0,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   11.826
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 11.826,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0017324530598866882,
+  "lost_pkts": 37.0,
+  "mean_qd_ms": 41.57224953902613,
+  "mean_rtt_ms": 102.17224953902651,
+  "median_rtt_ms": 68.39999999999964,
+  "n_rtt_samples": 3254,
+  "n_short_flows": 0,
+  "p95_qd_ms": 99.2699999999976,
+  "p95_rtt_ms": 159.86999999999796,
+  "partial_retx_events": 11,
+  "queue_occ_mean_pkts": 52.92277777777453,
+  "queue_occ_p95_pkts": 158.7608333333287,
+  "rate_stability": 0.5021745799119224,
+  "recovery_times_s": [
+   0.7
+  ],
+  "retx_rate": 0.004846146607697375,
+  "rto_events": 2,
+  "sent_pkts": 21357.0,
+  "throughput_mbps": 11.868826666666665
+ },
+ "model_info": {
+  "first": {
+   "name": "vegas_like"
+  },
+  "n_controllers": 1
+ },
+ "run_id": "run-20261013T101214-f470cd8a",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [
+   {
+    "bandwidth_mbps": 10.0,
+    "t_s": 8.0
+   }
+  ],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_bwdown_20to10",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 1,
+ "series_path": "results/series/run-20261013T101214-f470cd8a.json",
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 0.16474386300251354
+}

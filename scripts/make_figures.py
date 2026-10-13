@@ -50,7 +50,14 @@ def load_df(results_dir, suite):
     records = uio.load_run_records(Path(results_dir), experiment=exp, status="ok")
     if not records:
         return exp, None
-    return exp, uio.records_to_dataframe(records)
+    df = uio.records_to_dataframe(records)
+    # force numeric dtypes on the metric columns used for aggregation
+    for col in ("m_goodput_mbps", "m_mean_rtt_ms", "m_p95_rtt_ms",
+                "m_loss_rate", "m_jain_fairness", "m_mean_inference_ms",
+                "m_p95_qd_ms", "m_mean_qd_ms"):
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+    return exp, df
 
 
 def fig_goodput_by_scenario(df, suite, out):
@@ -60,9 +67,10 @@ def fig_goodput_by_scenario(df, suite, out):
     fig, ax = plt.subplots(figsize=(max(8, 0.62 * n_s * n_c ** 0.6), 3.4))
     width = 0.8 / n_c
     for i, c in enumerate(ctrls):
-        g = df[df["controller"] == c].groupby("scenario")["m_goodput_mbps"]
-        means = np.array([g.get(s, pd.Series([np.nan])).mean() for s in scenarios])
-        errs = np.array([g.get(s, pd.Series([np.nan])).sem() * 1.96
+        g = df[df["controller"] == c].groupby("scenario")["m_goodput_mbps"].mean()
+        sems = df[df["controller"] == c].groupby("scenario")["m_goodput_mbps"].sem()
+        means = np.array([g.get(s, np.nan) for s in scenarios])
+        errs = np.array([1.96 * (sems.get(s, np.nan) if np.isfinite(sems.get(s, np.nan) if s in sems.index else np.nan) else 0.0)
                          for s in scenarios])
         x = np.arange(n_s) + (i - n_c / 2) * width
         ax.bar(x, means, width * 0.92, yerr=errs, capsize=1.5,
@@ -81,7 +89,7 @@ def fig_pareto_rtt(df, suite, out):
     ctrls = [c for c in CTRLS if c in df["controller"].unique()]
     fig, ax = plt.subplots(figsize=(4.6, 3.6))
     for c in ctrls:
-        g = df[df["controller"] == c].groupby("scenario").mean()
+        g = df[df["controller"] == c].groupby("scenario")[["m_p95_rtt_ms", "m_goodput_mbps"]].mean()
         ax.scatter(g["m_p95_rtt_ms"], g["m_goodput_mbps"], s=22,
                    color=COLORS[c], label=LABELS[c], alpha=0.85,
                    edgecolor="black", linewidth=0.3)
@@ -98,7 +106,7 @@ def fig_loss_tradeoff(df, suite, out):
     ctrls = [c for c in CTRLS if c in df["controller"].unique()]
     fig, ax = plt.subplots(figsize=(4.6, 3.6))
     for c in ctrls:
-        g = df[df["controller"] == c].groupby("scenario").mean()
+        g = df[df["controller"] == c].groupby("scenario")[["m_loss_rate", "m_goodput_mbps"]].mean()
         ax.scatter(g["m_loss_rate"] * 100, g["m_goodput_mbps"], s=22,
                    color=COLORS[c], label=LABELS[c], alpha=0.85,
                    edgecolor="black", linewidth=0.3)

@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "max_ms": 5.184959998587146,
+  "mean_ms": 4.583711121995293,
+  "n_steps": 680,
+  "p95_ms": 4.7380183954373924
+ },
+ "metrics": {
+  "cwnd_osc": 0.5015095745962886,
+  "fast_retx_events": 62,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   10.079191111111111
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 10.079191111111111,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0009133462724055258,
+  "lost_pkts": 16.0,
+  "mean_qd_ms": 28.60291225416107,
+  "mean_rtt_ms": 88.90291225416034,
+  "median_rtt_ms": 64.5,
+  "n_rtt_samples": 2644,
+  "n_short_flows": 0,
+  "p95_qd_ms": 124.80000000000109,
+  "p95_rtt_ms": 185.10000000000036,
+  "partial_retx_events": 71,
+  "queue_occ_mean_pkts": 3.177777777777776,
+  "queue_occ_p95_pkts": 14.414999999999987,
+  "rate_stability": 0.5106011114520175,
+  "recovery_times_s": [],
+  "retx_rate": 0.05593731163351417,
+  "rto_events": 1,
+  "sent_pkts": 17518.0,
+  "throughput_mbps": 10.5996
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101129-5b0aa85d",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.001,
+  "n_flows": 1,
+  "name": "bw20_rtt60_q2_f1_l01",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 1,
+ "series_path": "results/series/run-20261013T101129-5b0aa85d.json",
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 3.2849554080021335
+}

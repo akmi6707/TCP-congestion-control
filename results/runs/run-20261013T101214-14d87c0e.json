@@ -1,0 +1,87 @@
+{
+ "code_version": "",
+ "controller": "rl_only",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 0.6006789990351535,
+  "mean_ms": 0.08255675600354015,
+  "n_steps": 795,
+  "p95_ms": 0.10009600009652785
+ },
+ "metrics": {
+  "cwnd_osc": 0.36578557506641024,
+  "fast_retx_events": 0,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   12.837617777777778
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 12.837617777777778,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 26.762128043281137,
+  "mean_rtt_ms": 87.0621280432811,
+  "median_rtt_ms": 88.39999999999964,
+  "n_rtt_samples": 3327,
+  "n_short_flows": 0,
+  "p95_qd_ms": 29.9000000000005,
+  "p95_rtt_ms": 90.20000000000046,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 27.165972222221026,
+  "queue_occ_p95_pkts": 44.668333333331454,
+  "rate_stability": 0.3641733531376051,
+  "recovery_times_s": [
+   0.6
+  ],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 21371.0,
+  "throughput_mbps": 12.837617777777778
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 1,
+  "policy_path": "models/dqn_rl_only.pt"
+ },
+ "run_id": "run-20261013T101214-14d87c0e",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [
+   {
+    "bandwidth_mbps": 10.0,
+    "t_s": 8.0
+   }
+  ],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_bwdown_20to10",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "series_path": "results/series/run-20261013T101214-14d87c0e.json",
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 0.9784100549950381
+}

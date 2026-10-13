@@ -1,0 +1,91 @@
+{
+ "code_version": "",
+ "controller": "rl_only_nodelay",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 0.47520500083919615,
+  "mean_ms": 0.1437357827712795,
+  "n_steps": 355,
+  "p95_ms": 0.15605429507559165
+ },
+ "metrics": {
+  "cwnd_osc": 2.019604332167144,
+  "fast_retx_events": 1,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   1.46
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 1.46,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.20598511317028712,
+  "lost_pkts": 1356.0,
+  "mean_qd_ms": 1180.5063918757473,
+  "mean_rtt_ms": 1240.8063918757466,
+  "median_rtt_ms": 91.5,
+  "n_rtt_samples": 1674,
+  "n_short_flows": 0,
+  "p95_qd_ms": 8190.870000000001,
+  "p95_rtt_ms": 8251.17,
+  "partial_retx_events": 217,
+  "queue_occ_mean_pkts": 7.9440740740740665,
+  "queue_occ_p95_pkts": 35.30999999999982,
+  "rate_stability": 3.4904364579041784,
+  "recovery_times_s": [
+   19.992,
+   19.988
+  ],
+  "retx_rate": 0.44872359154929575,
+  "rto_events": 319,
+  "sent_pkts": 6583.0,
+  "throughput_mbps": 1.856471111111111
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 1,
+  "policy_path": "models/dqn_rl_only_nodelay.pt"
+ },
+ "run_id": "run-20261013T101231-63ac88a3",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [
+   {
+    "loss_rate": 0.01,
+    "t_s": 8.0
+   },
+   {
+    "loss_rate": 0.0,
+    "t_s": 12.0
+   }
+  ],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_loss_spike",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 2,
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 0.24471805200300878
+}

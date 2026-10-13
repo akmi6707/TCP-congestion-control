@@ -1,0 +1,92 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "workload_20261013T154235",
+ "inference": {
+  "max_ms": 7.851317997847218,
+  "mean_ms": 4.709101342587563,
+  "n_steps": 919,
+  "p95_ms": 4.994195498875342
+ },
+ "metrics": {
+  "cwnd_osc": 0.08650817282433278,
+  "fast_retx_events": 0,
+  "fct_mean_s": 0.5078968177537858,
+  "fct_median_s": 0.5253786511004055,
+  "fct_p95_s": 0.8178367039986864,
+  "flow_goodput_mbps": [
+   18.900186666666666
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 18.900186666666666,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 22.006084070797147,
+  "mean_rtt_ms": 82.30608407079642,
+  "median_rtt_ms": 85.0,
+  "n_rtt_samples": 2712,
+  "n_short_flows": 8,
+  "p95_qd_ms": 33.5,
+  "p95_rtt_ms": 93.79999999999927,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 31.426666666666556,
+  "queue_occ_p95_pkts": 46.26749999999987,
+  "rate_stability": 0.029506378793613744,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 31458.0,
+  "throughput_mbps": 19.331697777777777
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 9,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101238-fbe2efb0",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "wl_short_flows",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": {
+   "n": 8,
+   "size_pkts_range": [
+    20,
+    150
+   ],
+   "start_s_range": [
+    2.0,
+    16.0
+   ]
+  },
+  "warmup_s": 2.0
+ },
+ "seed": 3,
+ "series_path": "results/series/run-20261013T101238-fbe2efb0.json",
+ "status": "ok",
+ "suite": "workload",
+ "training_time_s": null,
+ "wall_time_s": 5.030296087999886
+}

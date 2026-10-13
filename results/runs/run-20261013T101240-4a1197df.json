@@ -1,0 +1,89 @@
+{
+ "code_version": "",
+ "controller": "rl_only_noloss",
+ "duration_s": 20,
+ "experiment": "workload_20261013T154235",
+ "inference": {
+  "max_ms": 0.4803849951713346,
+  "mean_ms": 0.08121867038457763,
+  "n_steps": 916,
+  "p95_ms": 0.09407775178260636
+ },
+ "metrics": {
+  "cwnd_osc": 0.06861691338697543,
+  "fast_retx_events": 0,
+  "fct_mean_s": 0.48574266473524014,
+  "fct_median_s": 0.5005913898838403,
+  "fct_p95_s": 0.6556317323432946,
+  "flow_goodput_mbps": [
+   18.91576
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 18.91576,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 27.00003057168955,
+  "mean_rtt_ms": 87.3000305716895,
+  "median_rtt_ms": 88.19999999999891,
+  "n_rtt_samples": 3271,
+  "n_short_flows": 8,
+  "p95_qd_ms": 38.59999999999968,
+  "p95_rtt_ms": 98.89999999999964,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 41.941203703701824,
+  "queue_occ_p95_pkts": 59.55999999999889,
+  "rate_stability": 0.02761843041487813,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 31571.0,
+  "throughput_mbps": 19.421244444444444
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 9,
+  "policy_path": "models/dqn_rl_only_noloss.pt"
+ },
+ "run_id": "run-20261013T101240-4a1197df",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "wl_short_flows",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": {
+   "n": 8,
+   "size_pkts_range": [
+    20,
+    150
+   ],
+   "start_s_range": [
+    2.0,
+    16.0
+   ]
+  },
+  "warmup_s": 2.0
+ },
+ "seed": 4,
+ "status": "ok",
+ "suite": "workload",
+ "training_time_s": null,
+ "wall_time_s": 0.36190743999759434
+}

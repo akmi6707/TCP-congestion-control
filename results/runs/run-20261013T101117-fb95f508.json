@@ -1,0 +1,82 @@
+{
+ "code_version": "",
+ "controller": "rl_only_nodelay",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "max_ms": 0.31516700255451724,
+  "mean_ms": 0.14334708104004754,
+  "n_steps": 851,
+  "p95_ms": 0.1605039979040157
+ },
+ "metrics": {
+  "cwnd_osc": 1.472843511008728,
+  "fast_retx_events": 6,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   1.9135733333333333,
+   1.7299377777777778,
+   1.7708177777777778,
+   1.5988622222222222
+  ],
+  "goodput_cv": 0.06401648452015082,
+  "goodput_mbps": 7.013191111111111,
+  "jain_fairness": 0.9959186156727914,
+  "loss_rate": 0.2474257026640771,
+  "lost_pkts": 6752.0,
+  "mean_qd_ms": 1130.605101694916,
+  "mean_rtt_ms": 1190.9051016949152,
+  "median_rtt_ms": 119.70000000000073,
+  "n_rtt_samples": 5900,
+  "n_short_flows": 0,
+  "p95_qd_ms": 10732.410000000002,
+  "p95_rtt_ms": 10792.710000000001,
+  "partial_retx_events": 548,
+  "queue_occ_mean_pkts": 68.97722222222204,
+  "queue_occ_p95_pkts": 199.6666666666661,
+  "rate_stability": 3.213958662128423,
+  "recovery_times_s": [],
+  "retx_rate": 0.2605783444198078,
+  "rto_events": 692,
+  "sent_pkts": 27289.0,
+  "throughput_mbps": 11.243297777777778
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 4,
+  "policy_path": "models/dqn_rl_only_nodelay.pt"
+ },
+ "run_id": "run-20261013T101117-fb95f508",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 4,
+  "name": "bw20_rtt60_q2_f4",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 1,
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 0.6111175620026188
+}

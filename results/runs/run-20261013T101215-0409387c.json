@@ -1,0 +1,89 @@
+{
+ "code_version": "",
+ "controller": "hybrid",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 8.027335999940988,
+  "mean_ms": 4.581405427373487,
+  "n_steps": 791,
+  "p95_ms": 4.843464499572292
+ },
+ "metrics": {
+  "cwnd_osc": 0.4744155293173517,
+  "fast_retx_events": 0,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   12.482675555555556
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 12.482675555555556,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 13.25789120214895,
+  "mean_rtt_ms": 73.55789120214891,
+  "median_rtt_ms": 70.39999999999782,
+  "n_rtt_samples": 2978,
+  "n_short_flows": 0,
+  "p95_qd_ms": 28.700000000000045,
+  "p95_rtt_ms": 89.0,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 14.129212962962798,
+  "queue_occ_p95_pkts": 37.74999999999997,
+  "rate_stability": 0.39648604474133436,
+  "recovery_times_s": [
+   1.0
+  ],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 20858.0,
+  "throughput_mbps": 12.482675555555556
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "ml_model_size_bytes": 1910800,
+   "n_actions": 8,
+   "name": "hybrid"
+  },
+  "ml_path": "models/ml_predictor.joblib",
+  "n_controllers": 1,
+  "policy_path": "models/dqn_hybrid.pt"
+ },
+ "run_id": "run-20261013T101215-0409387c",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [
+   {
+    "bandwidth_mbps": 10.0,
+    "t_s": 8.0
+   }
+  ],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_bwdown_20to10",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 3,
+ "series_path": "results/series/run-20261013T101215-0409387c.json",
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 4.193505119001202
+}

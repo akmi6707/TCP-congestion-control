@@ -1,0 +1,83 @@
+{
+ "code_version": "",
+ "controller": "rl_only",
+ "duration_s": 20,
+ "experiment": "core_20261013T154027",
+ "inference": {
+  "max_ms": 0.7612879999214783,
+  "mean_ms": 0.12947858866405199,
+  "n_steps": 2650,
+  "p95_ms": 0.14688354640384205
+ },
+ "metrics": {
+  "cwnd_osc": 0.4832870659045787,
+  "fast_retx_events": 0,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   8.554951111111112,
+   2.9401155555555554,
+   4.277475555555556,
+   3.6707644444444445
+  ],
+  "goodput_cv": 0.44945708905381365,
+  "goodput_mbps": 19.44330666666667,
+  "jain_fairness": 0.8319386748740094,
+  "loss_rate": 0.0,
+  "lost_pkts": 0.0,
+  "mean_qd_ms": 25.041914191417916,
+  "mean_rtt_ms": 85.54306062185044,
+  "median_rtt_ms": 85.10000000000036,
+  "n_rtt_samples": 5757,
+  "n_short_flows": 0,
+  "p95_qd_ms": 35.29999999999976,
+  "p95_rtt_ms": 95.71999999999896,
+  "partial_retx_events": 0,
+  "queue_occ_mean_pkts": 38.09324074073869,
+  "queue_occ_p95_pkts": 52.77666666666255,
+  "rate_stability": 0.022808063256217967,
+  "recovery_times_s": [],
+  "retx_rate": 0.0,
+  "rto_events": 0,
+  "sent_pkts": 33131.0,
+  "throughput_mbps": 19.44330666666667
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 4,
+  "policy_path": "models/dqn_rl_only.pt"
+ },
+ "run_id": "run-20261013T101115-12992f8f",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [],
+  "loss_rate": 0.0,
+  "n_flows": 4,
+  "name": "bw20_rtt60_q2_f4",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 4,
+ "series_path": "results/series/run-20261013T101115-12992f8f.json",
+ "status": "ok",
+ "suite": "core",
+ "training_time_s": null,
+ "wall_time_s": 0.8918842700004461
+}

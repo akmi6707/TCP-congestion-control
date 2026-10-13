@@ -1,0 +1,92 @@
+{
+ "code_version": "",
+ "controller": "rl_only",
+ "duration_s": 20,
+ "experiment": "robustness_20261013T154212",
+ "inference": {
+  "max_ms": 0.535687999217771,
+  "mean_ms": 0.0791111039217862,
+  "n_steps": 722,
+  "p95_ms": 0.09231190015270832
+ },
+ "metrics": {
+  "cwnd_osc": 0.5931025270356531,
+  "fast_retx_events": 31,
+  "fct_mean_s": null,
+  "fct_median_s": null,
+  "fct_p95_s": null,
+  "flow_goodput_mbps": [
+   13.61888
+  ],
+  "goodput_cv": 0.0,
+  "goodput_mbps": 13.61888,
+  "jain_fairness": 1.0,
+  "loss_rate": 0.0006510134108762641,
+  "lost_pkts": 15.0,
+  "mean_qd_ms": 30.339741408642652,
+  "mean_rtt_ms": 90.63974140864192,
+  "median_rtt_ms": 88.29999999999927,
+  "n_rtt_samples": 2939,
+  "n_short_flows": 0,
+  "p95_qd_ms": 91.44000000000138,
+  "p95_rtt_ms": 151.74000000000066,
+  "partial_retx_events": 32,
+  "queue_occ_mean_pkts": 23.784814814814148,
+  "queue_occ_p95_pkts": 44.74999999999747,
+  "rate_stability": 0.5424543179556711,
+  "recovery_times_s": [
+   2.692,
+   2.688
+  ],
+  "retx_rate": 0.018251723528371927,
+  "rto_events": 0,
+  "sent_pkts": 23041.0,
+  "throughput_mbps": 13.877137777777778
+ },
+ "model_info": {
+  "first": {
+   "interval_ticks": 5,
+   "n_actions": 8,
+   "name": "rl_only"
+  },
+  "n_controllers": 1,
+  "policy_path": "models/dqn_rl_only.pt"
+ },
+ "run_id": "run-20261013T101229-a8d1cf44",
+ "scenario": {
+  "bandwidth_mbps": 20,
+  "base_rtt_ms": 60,
+  "bw_variation": {
+   "type": "none"
+  },
+  "capacity_events": [],
+  "dt_ms": 5.0,
+  "duration_s": 20,
+  "flow_start_offsets_s": null,
+  "loss_events": [
+   {
+    "loss_rate": 0.01,
+    "t_s": 8.0
+   },
+   {
+    "loss_rate": 0.0,
+    "t_s": 12.0
+   }
+  ],
+  "loss_rate": 0.0,
+  "n_flows": 1,
+  "name": "rob_loss_spike",
+  "queue_bdp_factor": 2.0,
+  "queue_packets": null,
+  "rtt_events": [],
+  "seed": 0,
+  "short_flows": null,
+  "warmup_s": 2.0
+ },
+ "seed": 3,
+ "series_path": "results/series/run-20261013T101229-a8d1cf44.json",
+ "status": "ok",
+ "suite": "robustness",
+ "training_time_s": null,
+ "wall_time_s": 0.20046478799486067
+}
