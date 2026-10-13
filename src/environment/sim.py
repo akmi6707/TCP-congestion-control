@@ -305,7 +305,12 @@ class Simulator:
         cap_dt = rate_pkts_ms * dt
         p_loss = self.loss_rate(t)
 
-        active = [f for f in self.all_flows() if t >= f.start_ms and not f.done_sending]
+        # All started flows stay "active" for observation and loss recovery
+        # even after they finish sending (a real connection keeps repairing
+        # losses until all data is delivered; removing done flows froze
+        # short-flow recovery - Phase-3 bug). Sends are separately guarded
+        # by remaining data in _send.
+        active = [f for f in self.all_flows() if t >= f.start_ms]
 
         # 1) reset per-tick observation counters (BEFORE ack processing so the
         #    controller's on_tick for this tick sees this tick's events)

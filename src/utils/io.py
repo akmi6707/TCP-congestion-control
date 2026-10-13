@@ -154,6 +154,9 @@ def records_to_dataframe(records: list) -> "pd.DataFrame":
         for k in ("bandwidth_mbps", "base_rtt_ms", "n_flows", "loss_rate", "queue_bdp_factor", "queue_packets"):
             row[k] = sc.get(k)
         row.update({f"m_{k}": v for k, v in (rec.get("metrics") or {}).items()})
+        inf = rec.get("inference") or {}
+        row["m_mean_inference_ms"] = inf.get("mean_ms")
+        row["m_p95_inference_ms"] = inf.get("p95_ms")
         row["train_time_s"] = rec.get("training_time_s")
         row["model_info"] = json.dumps(rec.get("model_info") or {})
         flat.append(row)

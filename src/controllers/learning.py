@@ -175,7 +175,7 @@ class LearningController(BaseController):
         # 5) store DQN transition for the PREVIOUS control point
         if self.train_fn is not None and self._prev_state is not None:
             self.train_fn(self._prev_state, self._prev_action_taken, r, state,
-                          False)
+                          False, self.flow_id)
 
         # 6) apply the action for the upcoming interval
         mult = self.space.apply(flow, action, stats.bdp_est_pkts)
@@ -192,7 +192,7 @@ class LearningController(BaseController):
         transition with done=True."""
         if self.train_fn is not None and self._prev_state is not None:
             self.train_fn(self._prev_state, self._prev_action_taken,
-                          self.prev_reward, self._prev_state, True)
+                          self.prev_reward, self._prev_state, True, self.flow_id)
         self._prev_state = None
         self._prev_action_taken = None
         self._pending_features = None

@@ -23,8 +23,9 @@ CONVENTIONAL = {
 
 def make_controller_factory(name: str, **kwargs):
     if name in CONVENTIONAL:
+        from .learning import ControllerFactory
         cls = CONVENTIONAL[name]
-        return lambda flow_id: cls(flow_id=flow_id)
+        return ControllerFactory(lambda flow_id, _cls=cls: _cls(flow_id=flow_id))
     # learning-based controllers are built by their training/eval modules
     # (they need a loaded model); dispatch here so callers have one entry point.
     if name in ("rl_only", "hybrid", "ml_only", "random"):

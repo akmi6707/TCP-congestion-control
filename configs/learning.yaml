@@ -24,11 +24,12 @@ reward_weights:            # pre-registered; ablations override these
 
 dqn:
   hidden: 128
-  lr: 0.001
+  lr: 0.0007               # lowered from 0.001 after observed Q-collapse
   gamma: 0.99
+  n_step: 3                # ~one RTT of credit alignment at 25 ms steps
   batch: 128
   buffer_size: 300000
   train_every: 2           # one gradient step per 2 env steps
-  target_sync_steps: 1000
+  target_sync_steps: 500   # faster target tracking (stabilizer)
   warmup_steps: 2000
   grad_clip: 10.0

@@ -65,6 +65,7 @@ def train(variant: str, args) -> int:
     eps_decay = float(dqn_cfg.get("epsilon_decay_steps", 250_000))
 
     best_val = -float("inf")
+    val_window: list = []   # moving average of the last 3 validations
     train_log = {"variant": variant, "seed": seed, "state_dim": state_dim,
                  "n_episodes": n_episodes, "episodes": [], "code_version": uio.git_commit()}
     t_start = time.time()
@@ -73,8 +74,8 @@ def train(variant: str, args) -> int:
         def act_fn(state, _eps=eps):
             return agent.act(state, _eps)
 
-        def train_fn(s, a, r, s2, done):
-            agent.remember(s, a, r, s2, done)
+        def train_fn(s, a, r, s2, done, flow_id=0):
+            agent.remember(s, a, r, s2, done, flow_id=flow_id)
             agent.maybe_train()
 
         factory = make_learning_controller_factory(
@@ -137,13 +138,23 @@ def train(variant: str, args) -> int:
                     log.error("validation run failed: %s", exc)
             val = float(np.mean(scores)) if scores else float("nan")
             train_log["episodes"][-1]["val_goodput_mbps"] = val
-            log.info("  -> validation mean goodput: %.3f Mbps (best %.3f)", val, best_val)
-            if np.isfinite(val) and val > best_val:
-                best_val = val
-                agent.save(args.out)
-                train_log["best_val"] = best_val
-                train_log["best_episode"] = ep + 1
-                log.info("  -> saved best checkpoint to %s", args.out)
+            # checkpoint on the best 3-validation MOVING AVERAGE (a single
+            # validation can spike; the moving average selects stable
+            # policies rather than lucky ones)
+            if np.isfinite(val):
+                val_window.append(val)
+                val_window = val_window[-3:]
+            if len(val_window) == 3 and np.isfinite(val_window).all():
+                avg = float(np.mean(val_window))
+                if avg > best_val:
+                    best_val = avg
+                    agent.save(args.out)
+                    train_log["best_val_ma3"] = best_val
+                    train_log["best_episode"] = ep + 1
+                    log.info("  -> validation %.3f (ma3 %.3f, best %.3f): saved checkpoint",
+                             val, avg, best_val)
+            else:
+                log.info("  -> validation mean goodput: %.3f Mbps", val)
 
     # final checkpoint under a separate name (best is the one used for eval)
     agent.save(args.out.replace(".pt", "_final.pt"))
