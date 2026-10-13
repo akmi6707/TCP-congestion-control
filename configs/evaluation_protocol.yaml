@@ -58,6 +58,15 @@ controllers:
   learning: [random, ml_only, rl_only, hybrid]
   ablations: [rl_only_nodelay, rl_only_noloss]
 
+training_notes: >
+  The hybrid policy is warm-started from the final rl_only policy (shared
+  18 input weights copied, 3 ML-feature columns zero-initialized) and
+  fine-tuned with epsilon_start=0.3, because the cold-start hybrid DQN
+  collapsed to a frozen constant policy (validation goodput constant across
+  all 22 evaluations; artifact preserved as models/dqn_hybrid_coldstart.pt).
+  This decision was made BEFORE any test-suite evaluation of the hybrid,
+  and both artifacts are retained.
+
 notes: >
   The primary comparison family is {hybrid} vs {reno, cubic, bbr_like,
   vegas_like} on the core suite; Holm correction is applied across these 4

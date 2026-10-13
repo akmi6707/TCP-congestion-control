@@ -19,6 +19,8 @@ import os
 import sys
 import time
 
+import torch
+
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 import numpy as np
@@ -43,6 +45,13 @@ def train(variant: str, args) -> int:
     n_episodes = args.episodes if args.episodes else int(cur["n_episodes"])
     seed = args.seed
 
+    # optional warm start: initialize the policy from a source checkpoint
+    # (e.g. hybrid from rl_only: input weights for the shared 18 features
+    # are copied, the extra 3 ML-feature columns start at zero, remaining
+    # layers are copied; fine-tuning then adapts). Standard pretrain +
+    # fine-tune practice; documented in the training log.
+    warm_start_info = None
+
     state_dim = N_BASE_FEATURES + (N_HYBRID_FEATURES if variant == "hybrid" else 0)
     reward_weights = None
     if variant == "rl_only_nodelay":
@@ -59,7 +68,29 @@ def train(variant: str, args) -> int:
         ml_model = MLPredictor.load(args.ml_path)
 
     agent = DQNAgent(state_dim, N_ACTIONS, cfg=learn_cfg.get("dqn"), seed=seed)
+    if getattr(args, "warm_start_from", None):
+        src = torch.load(args.warm_start_from, map_location="cpu", weights_only=True)
+        src_dim = src["state_dim"]
+        if src_dim > state_dim or src["n_actions"] != N_ACTIONS:
+            raise SystemExit(f"incompatible warm-start checkpoint: {src_dim} -> {state_dim}")
+        with torch.no_grad():
+            w = agent.online.net[0].weight          # [hidden, state_dim]
+            b = agent.online.net[0].bias
+            src_w = src["online"]["net.0.weight"]   # [hidden, src_dim]
+            w[:, :src_dim].copy_(src_w)
+            if src_dim == state_dim:
+                b.copy_(src["online"]["net.0.bias"])
+            for layer_idx in (2, 4):
+                agent.online.net[layer_idx].weight.copy_(src["online"][f"net.{layer_idx}.weight"])
+                agent.online.net[layer_idx].bias.copy_(src["online"][f"net.{layer_idx}.bias"])
+            agent.target.load_state_dict(agent.online.state_dict())
+        warm_start_info = {"from": args.warm_start_from, "src_state_dim": src_dim}
+        log.info("warm-started policy from %s (src dim %d -> %d)",
+                 args.warm_start_from, src_dim, state_dim)
     dqn_cfg = cur.get("dqn", {})
+    if getattr(args, "eps_start", None) is not None:
+        dqn_cfg = dict(dqn_cfg)
+        dqn_cfg["epsilon_start"] = args.eps_start
     eps_start = float(dqn_cfg.get("epsilon_start", 1.0))
     eps_end = float(dqn_cfg.get("epsilon_end", 0.05))
     eps_decay = float(dqn_cfg.get("epsilon_decay_steps", 250_000))
@@ -67,6 +98,7 @@ def train(variant: str, args) -> int:
     best_val = -float("inf")
     val_window: list = []   # moving average of the last 3 validations
     train_log = {"variant": variant, "seed": seed, "state_dim": state_dim,
+                 "warm_start": warm_start_info,
                  "n_episodes": n_episodes, "episodes": [], "code_version": uio.git_commit()}
     t_start = time.time()
 
@@ -181,6 +213,11 @@ def main():
     ap.add_argument("--log-out", default=None)
     ap.add_argument("--episodes", type=int, default=None)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--warm-start-from", default=None,
+                    help="checkpoint to initialize the policy from "
+                         "(e.g. hybrid warm-started from rl_only)")
+    ap.add_argument("--eps-start", type=float, default=None,
+                    help="override epsilon_start (use with warm start)")
     args = ap.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
     os.environ.setdefault("OMP_NUM_THREADS", "4")
