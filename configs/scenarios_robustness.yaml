@@ -1,0 +1,44 @@
+# Robustness scenarios: abrupt changes at t=8 s of a 20 s episode.
+# Recovery metric definitions are pre-registered in src/metrics/metrics.py.
+scenarios:
+  - name: rob_bwdown_20to10
+    duration_s: 20
+    bandwidth_mbps: 20
+    base_rtt_ms: 60
+    queue_bdp_factor: 2.0
+    loss_rate: 0.0
+    n_flows: 1
+    warmup_s: 2.0
+    capacity_events:
+      - {t_s: 8.0, bandwidth_mbps: 10.0}
+  - name: rob_bwup_20to40
+    duration_s: 20
+    bandwidth_mbps: 20
+    base_rtt_ms: 60
+    queue_bdp_factor: 2.0
+    loss_rate: 0.0
+    n_flows: 1
+    warmup_s: 2.0
+    capacity_events:
+      - {t_s: 8.0, bandwidth_mbps: 40.0}
+  - name: rob_rttup_60to140
+    duration_s: 20
+    bandwidth_mbps: 20
+    base_rtt_ms: 60
+    queue_bdp_factor: 2.0
+    loss_rate: 0.0
+    n_flows: 1
+    warmup_s: 2.0
+    rtt_events:
+      - {t_s: 8.0, base_rtt_ms: 140.0}
+  - name: rob_loss_spike
+    duration_s: 20
+    bandwidth_mbps: 20
+    base_rtt_ms: 60
+    queue_bdp_factor: 2.0
+    loss_rate: 0.0
+    n_flows: 1
+    warmup_s: 2.0
+    loss_events:
+      - {t_s: 8.0, loss_rate: 0.01}
+      - {t_s: 12.0, loss_rate: 0.0}

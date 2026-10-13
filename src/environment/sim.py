@@ -59,6 +59,7 @@ class Flow:
         "flow_id", "bidx", "is_short", "start_ms", "total_pkts", "remaining_pkts",
         "cwnd", "ssthresh", "snd_una", "next_seq", "srtt", "rttvar", "rto",
         "min_rtt", "dupacks_pending", "retx_pending", "recovery_active",
+        "last_partial_retx_ms",
         "recovery_high", "rto_base_ms", "controller", "done_sending", "fct_ms",
         "last_tick_new_acks", "last_tick_dupacks", "last_tick_loss_event",
         "last_tick_rto_event",
@@ -88,6 +89,7 @@ class Flow:
         self.dupacks_pending = 0
         self.retx_pending = set()           # seqs retransmitted, not yet acked
         self.retx_send_times: Dict[int, float] = {}
+        self.last_partial_retx_ms = -1e18   # rate limit for partial-ack retx
         self.recovery_active = False
         self.recovery_high = -1
         self.rto_base_ms = None
@@ -383,23 +385,36 @@ class Simulator:
                     # SACK block was sent before delivered data and is
                     # presumed lost; retransmit the missing run (skipping
                     # seqs already retransmitted and unacked). Bounded per
-                    # event to avoid retransmission floods. Single-segment
-                    # fallback when no SACK info exists (like a plain RTO).
-                    seq = f.snd_una
-                    sacked = any(s <= seq < e for s, e in sack)
-                    if not sacked:
-                        run_end = seq + 1
-                        if sack:
-                            run_end = max(run_end, min(s for s, _ in sack))
-                        run_end = min(run_end, seq + 128)
-                        n_re = 0
-                        for s in range(seq, run_end):
-                            if s >= f.next_seq or n_re >= 128:
-                                break
-                            if s not in f.retx_pending:
-                                self._retransmit(f, s, t)
-                                n_re += 1
-                        self.partial_retx_events += 1
+                    # event to avoid retransmission floods.
+                    # NO-SACK FALLBACK: when a giant contiguous tail drop
+                    # leaves nothing buffered at the receiver (no SACK
+                    # blocks), single-segment retransmission crawls at one
+                    # hole per RTT (hundreds of holes => tens of seconds -
+                    # Phase-3 bug). Modern TCP retransmits several segments
+                    # per ack in this regime; retransmit a bounded run of 16.
+                    # RATE LIMIT: partial-ack events fire per ACK chunk and
+                    # chunks are dense, so unbounded firing compounds the
+                    # retransmission stream exponentially; fire at most once
+                    # per half-RTT per flow.
+                    gate = max(25.0, 0.5 * (f.srtt or 50.0))
+                    if t - f.last_partial_retx_ms >= gate:
+                        f.last_partial_retx_ms = t
+                        seq = f.snd_una
+                        sacked = any(s <= seq < e for s, e in sack)
+                        if not sacked:
+                            if sack:
+                                run_end = max(seq + 1, min(s for s, _ in sack))
+                            else:
+                                run_end = min(seq + 16, f.recovery_high)
+                            run_end = min(run_end, seq + 128)
+                            n_re = 0
+                            for s in range(seq, run_end):
+                                if s >= f.next_seq or n_re >= 128:
+                                    break
+                                if s not in f.retx_pending:
+                                    self._retransmit(f, s, t)
+                                    n_re += 1
+                            self.partial_retx_events += 1
             f.controller.on_new_acks(f, n_new)
         elif dup > 0:
             f.last_tick_dupacks += dup
@@ -448,6 +463,14 @@ class Simulator:
         avail = int(math.floor(f.cwnd)) - f.inflight
         if avail <= 0:
             return
+        # Transport-level burst smoother (identical for all controllers):
+        # cap per-tick sends at 2x the current bottleneck service plus IW.
+        # Real ACK-clocked senders cannot sustain ~3x link-rate dumps for a
+        # whole RTT; without the cap, slow-start overshoot drops entire
+        # batches contiguously (no dupack/SACK feedback for a full RTT),
+        # which inflates loss far beyond real behavior (Phase-3 finding).
+        rate_cap = max(10, int(2 * self.pkts_per_ms(self.capacity_mbps(t)) * self.dt))
+        avail = min(avail, rate_cap)
         if f.is_short:
             avail = min(avail, int(f.remaining_pkts))
             if avail <= 0:
@@ -640,6 +663,7 @@ class Simulator:
             "min_rtt_ms": None if f.min_rtt == math.inf else f.min_rtt,
             "est_bw_mbps": est,
             "new_acks": f.last_tick_new_acks,
+            "dupacks": f.last_tick_dupacks,
             "dupacks_pending": f.dupacks_pending,
             "loss_event": f.last_tick_loss_event,
             "rto_event": f.last_tick_rto_event,

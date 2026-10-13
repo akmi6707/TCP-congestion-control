@@ -1,0 +1,8 @@
+# Held-out generalization scenarios (RQ3): parameter regions OUTSIDE the
+# training curriculum (bw 5-60, rtt 20-140, queue 0.3-3.0 BDP, loss <=0.5%).
+scenarios:
+  - {name: gen_bw100_rtt60_q2,  duration_s: 20, bandwidth_mbps: 100, base_rtt_ms: 60,  queue_bdp_factor: 2.0,  loss_rate: 0.0,   n_flows: 1, warmup_s: 2.0}
+  - {name: gen_bw5_rtt200_q2,   duration_s: 20, bandwidth_mbps: 5,   base_rtt_ms: 200, queue_bdp_factor: 2.0,  loss_rate: 0.0,   n_flows: 1, warmup_s: 2.0}
+  - {name: gen_bw100_rtt140_q2, duration_s: 20, bandwidth_mbps: 100, base_rtt_ms: 140, queue_bdp_factor: 2.0,  loss_rate: 0.0,   n_flows: 1, warmup_s: 2.0}
+  - {name: gen_bw20_rtt20_q025, duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 20,  queue_bdp_factor: 0.25, loss_rate: 0.0,   n_flows: 1, warmup_s: 2.0}
+  - {name: gen_bw20_rtt60_l10,  duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 60,  queue_bdp_factor: 2.0,  loss_rate: 0.01,  n_flows: 1, warmup_s: 2.0}

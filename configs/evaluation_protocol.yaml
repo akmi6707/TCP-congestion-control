@@ -1,0 +1,66 @@
+# ============================================================================
+# PRE-REGISTERED EVALUATION PROTOCOL
+# ----------------------------------------------------------------------------
+# This file was written BEFORE any learning-based controller was trained or
+# evaluated. The success criteria below were fixed a priori and are not
+# adjusted after seeing results. (Git history documents the ordering.)
+# ============================================================================
+
+primary_metric: goodput_mbps     # mean over [warmup_s, duration_s] window
+
+guardrails:                      # secondary metrics that must not collapse
+  mean_rtt_ms:   {max_rel_increase: 0.10}
+  p95_rtt_ms:    {max_rel_increase: 0.10}
+  loss_rate:     {max_abs_increase: 0.005, max_rel_increase: 2.0}
+  jain_fairness: {max_abs_decrease: 0.02}
+
+hypothesis_tests:
+  primary:
+    test: paired wilcoxon signed-rank
+    unit: one (scenario, seed) run pair; hybrid vs baseline under identical
+          scenario+seed (same link-noise sequence; approximate pairing, see
+          docs/limitations)
+    alpha: 0.05
+    multiple_comparison: holm-bonferroni across the baseline family
+  secondary:
+    per_scenario: paired t-test across seeds (n=5), holm-corrected across
+                  scenarios; reported as supporting evidence only
+  effect_sizes: [cliffs_delta, paired_r]
+
+success_criteria:
+  vs_conventional: >          # hybrid vs best conventional baseline
+    - goodput improvement with one-sided paired Wilcoxon p < 0.05
+      (holm-corrected), AND
+    - no guardrail violated in the aggregate (means across core scenarios)
+  rq2_hybrid_vs_rl_only: >    # RQ2: does the ML component help RL?
+    - one-sided paired Wilcoxon p < 0.05 on goodput, OR
+    - goodput within 2% (non-inferior) AND significant p95_rtt_ms reduction,
+    - with no guardrail violated
+  partial_support: >
+    If hybrid ties the best conventional baseline on goodput (within 2%)
+    but significantly improves p95 RTT and/or loss rate with no guardrail
+    violation, report as PARTIAL SUPPORT (a delay/loss-dominant trade-off,
+    as in the BBR literature), not as a failure.
+
+seeds: [0, 1, 2, 3, 4]        # 5 independent trials per scenario
+warmup_s: 2.0
+duration_s: 20.0              # core/generalization; robustness uses 20 s
+                              # with events at t=8 s
+
+scenario_suites:
+  core: configs/scenarios_core.yaml           # 13 scenarios, in-distribution
+  generalization: configs/scenarios_generalization.yaml  # 5 held-out configs
+  robustness: configs/scenarios_robustness.yaml          # 3 abrupt-change
+  workload: configs/scenarios_workload.yaml              # short flows
+
+controllers:
+  conventional: [reno, cubic, bbr_like, vegas_like]
+  learning: [random, ml_only, rl_only, hybrid]
+  ablations: [rl_only_nodelay, rl_only_noloss]
+
+notes: >
+  The primary comparison family is {hybrid} vs {reno, cubic, bbr_like,
+  vegas_like} on the core suite; Holm correction is applied across these 4
+  primary comparisons. Generalization, robustness, and workload suites are
+  reported descriptively (means, CIs, effect sizes) without additional
+  confirmatory claims.

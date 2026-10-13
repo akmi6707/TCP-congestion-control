@@ -1,0 +1,25 @@
+# Core test matrix: 13 scenarios spanning bandwidth, RTT, queueing, random
+# loss, time-varying capacity, and competing flows. All within the training
+# distribution (see configs/curriculum.yaml). 20 s episodes, warmup 2 s.
+scenarios:
+  - {name: bw5_rtt60_q2_f1,      duration_s: 20, bandwidth_mbps: 5,   base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw5_rtt140_q2_f1,     duration_s: 20, bandwidth_mbps: 5,   base_rtt_ms: 140, queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw20_rtt20_q2_f1,     duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 20,  queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw20_rtt60_q2_f1,     duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw20_rtt140_q2_f1,    duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 140, queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw50_rtt20_q2_f1,     duration_s: 20, bandwidth_mbps: 50,  base_rtt_ms: 20,  queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw50_rtt60_q2_f1,     duration_s: 20, bandwidth_mbps: 50,  base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw5_rtt60_q05_f1,     duration_s: 20, bandwidth_mbps: 5,   base_rtt_ms: 60,  queue_bdp_factor: 0.5, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw20_rtt60_q05_f1,    duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 60,  queue_bdp_factor: 0.5, loss_rate: 0.0,    n_flows: 1, warmup_s: 2.0}
+  - {name: bw20_rtt60_q2_f4,     duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.0,    n_flows: 4, warmup_s: 2.0}
+  - {name: bw20_rtt60_q2_f1_l01, duration_s: 20, bandwidth_mbps: 20,  base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.001,  n_flows: 1, warmup_s: 2.0}
+  - {name: bw50_rtt60_q2_f1_l05, duration_s: 20, bandwidth_mbps: 50,  base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.005,  n_flows: 1, warmup_s: 2.0}
+  - name: bw20_rtt60_q2_f1_sine
+    duration_s: 20
+    bandwidth_mbps: 20
+    base_rtt_ms: 60
+    queue_bdp_factor: 2.0
+    loss_rate: 0.0
+    n_flows: 1
+    warmup_s: 2.0
+    bw_variation: {type: sine, amplitude_frac: 0.3, period_s: 10.0}

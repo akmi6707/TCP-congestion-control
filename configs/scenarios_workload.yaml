@@ -1,0 +1,15 @@
+# Workload scenario: one long flow plus 8 staggered short flows
+# (30 KB - 225 KB transfers) to measure flow completion time.
+scenarios:
+  - name: wl_short_flows
+    duration_s: 20
+    bandwidth_mbps: 20
+    base_rtt_ms: 60
+    queue_bdp_factor: 2.0
+    loss_rate: 0.0
+    n_flows: 1
+    warmup_s: 2.0
+    short_flows:
+      n: 8
+      size_pkts_range: [20, 150]
+      start_s_range: [2.0, 16.0]

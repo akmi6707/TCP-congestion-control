@@ -1,22 +1,28 @@
 """BBR-inspired model-based controller (NOT kernel BBR; documented divergence).
 
-Core idea (per BBRv1): maintain (1) a max delivered-bandwidth filter measured
-over ~RTT rounds (windowed max over the last 10 rounds, like BBR's BtlBw
-filter) and (2) a min-RTT estimate, then set the send window to
-pacing_gain x BDP estimate. (A fixed 1 s sliding average lags the startup
-ramp and locks the controller at a low fixed point - Phase-2 finding; BBR's
-round-based filter does not.)
+Core idea (per BBRv1): maintain (1) a windowed-max delivered-bandwidth
+estimate and (2) a min-RTT estimate, then set the send window to
+pacing_gain x BDP estimate.
 
-Phases:
-- Startup: gain 2.0 until round-rate growth stalls for 3 consecutive rounds.
-- ProbeBW: cycle pacing gains [1.25, 0.75, 1, 1, 1, 1, 1, 1], one min-RTT
-  per phase (approximation without packet pacing).
-- ProbeRTT: every 10 s, hold cwnd = 4 packets for one min-RTT to re-measure.
+- Bandwidth estimate: windowed max over the last 40 delivery-rate rounds
+  (each round ~ one RTT). Earlier variants failed three ways, all fixed:
+  (a) a fixed 1 s sliding average lags the startup ramp and locks a low
+  fixed point; (b) probe phases of ~1 RTT alias with the round measurement
+  and lock the filter at its startup value; (c) a 10-round max window
+  lets probe-phase highs age out between probes (spiral-down at low rates).
+  40 rounds (~1-4 s) holds probe highs long enough while still adapting
+  within a few seconds to capacity drops.
+- Startup: gain 2.0 until round-rate growth stalls for 3 consecutive
+  ~RTT rounds.
+- ProbeBW: pacing gains [1.25, 0.75, 1, 1, 1, 1, 1, 1], each phase held for
+  max(2xRTT, 40 ms) so that delivery measurements observe a full phase;
+  the 0.75 drain phase floors the window at 1x BDP (BBR drains the queue,
+  never the pipe).
+- ProbeRTT: every 10 s, hold cwnd = 4 packets for one phase to re-measure.
 
 Divergences from kernel BBR (documented): no packet-level pacing (window
-emulation only), running min-RTT instead of windowed, simplified phase
-timing, and a single shared bottleneck. Responds to RTO (transport collapse)
-but otherwise ignores loss, like BBR.
+emulation), running min-RTT (not windowed), single shared bottleneck.
+Responds to RTO (transport collapse) but otherwise ignores loss, like BBR.
 """
 from __future__ import annotations
 
@@ -28,7 +34,7 @@ PROBE_BW_GAINS = [1.25, 0.75, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 STARTUP_GAIN = 2.0
 PROBE_RTT_INTERVAL_MS = 10_000.0
 PAYLOAD = 1460.0
-MAX_ROUNDS = 10
+MAX_ROUNDS = 40
 
 
 class BBRLikeController(BaseController):
@@ -39,16 +45,20 @@ class BBRLikeController(BaseController):
         self.phase = "startup"
         self.gain_idx = 0
         self.phase_until_ms = 0.0
-        # round-based delivery-rate filter (packets delivered per round)
+        # round-based delivery accumulation and windowed-max rate filter
         self.round_pkts = 0.0
         self.round_start_ms: float | None = None
-        self.round_rates_mbps: list = []   # last MAX_ROUNDS round rates
+        self.round_rates_mbps: list = []
         self.startup_plateau = 0
         self.probe_rtt_next = PROBE_RTT_INTERVAL_MS
         self.probe_rtt_until = 0.0
         self.last_t = 0.0
 
-    # -------------------------------------------------------------bw filter
+    # -------------------------------------------------------- bw estimates
+    @property
+    def bw_max_mbps(self) -> float:
+        return max(self.round_rates_mbps, default=0.0)
+
     def _close_round_if_due(self, t: float, min_rtt_ms: float | None) -> None:
         if min_rtt_ms is None:
             return
@@ -56,23 +66,19 @@ class BBRLikeController(BaseController):
         if self.round_start_ms is None:
             self.round_start_ms = t
             return
-        dur = t - self.round_start_ms
-        if dur >= dur_needed:
-            rate_mbps = self.round_pkts * PAYLOAD * 8.0 / dur / 1000.0
-            self.round_rates_mbps.append(rate_mbps)
+        if t - self.round_start_ms >= dur_needed:
+            dur = t - self.round_start_ms
+            rate = self.round_pkts * PAYLOAD * 8.0 / dur / 1000.0
+            self.round_rates_mbps.append(rate)
             if len(self.round_rates_mbps) > MAX_ROUNDS:
                 self.round_rates_mbps.pop(0)
             self.round_pkts = 0.0
             self.round_start_ms = t
 
-    @property
-    def bw_max_mbps(self) -> float:
-        return max(self.round_rates_mbps) if self.round_rates_mbps else 0.0
-
     def on_new_acks(self, flow, n_new: int) -> None:
         self.round_pkts += n_new
 
-    # -------------------------------------------------------------main tick
+    # ------------------------------------------------------------- main tick
     def on_tick(self, flow, obs: dict) -> None:
         t = obs["t_ms"]
         self.last_t = t
@@ -111,13 +117,14 @@ class BBRLikeController(BaseController):
         self._apply(flow, gain, min_rtt)
 
     def _phase_len_ms(self, min_rtt_ms: float | None) -> float:
-        return max(min_rtt_ms or 100.0, 25.0)
+        return max(2.0 * (min_rtt_ms or 100.0), 40.0)
 
     def _apply(self, flow, gain: float, min_rtt_ms: float | None) -> None:
         if min_rtt_ms is None or self.bw_max_mbps <= 0:
             return  # not enough measurements yet; keep current cwnd
         bdp_pkts = self.bw_max_mbps * 1e6 / 8.0 / PAYLOAD * (min_rtt_ms / 1000.0)
-        cwnd = gain * bdp_pkts
+        # The 0.75 drain phase reduces the standing queue, never the pipe.
+        cwnd = max(gain, 1.0) * bdp_pkts
         cwnd = min(cwnd, 2.5 * bdp_pkts)   # BBR-ish inflight cap
         flow.cwnd = max(4.0, cwnd)
 

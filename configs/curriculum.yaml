@@ -1,0 +1,40 @@
+# RL training curriculum: scenario distribution for DQN episodes.
+# Fixed a priori. The test suites (core/generalization) are separate files;
+# core values lie INSIDE these ranges, generalization values OUTSIDE.
+seed: 0
+n_episodes: 900
+episode_s: 10
+dt_ms: 5
+warmup_s: 2.0
+
+sampling:
+  bandwidth_mbps: {log_uniform: [5, 60]}
+  base_rtt_ms: {choices: [20, 30, 40, 60, 80, 100, 120, 140]}
+  queue_bdp_factor: {uniform: [0.3, 3.0]}
+  loss_rate_mixture:
+    p_none: 0.6
+    uniform: [0.0005, 0.005]
+  n_flows: {choices: [1, 1, 1, 2, 4]}
+  sine:
+    p: 0.3
+    amplitude_frac: [0.1, 0.4]
+    period_s: [5.0, 20.0]
+
+dqn:
+  epsilon_start: 1.0
+  epsilon_end: 0.05
+  # An earlier schedule (250k steps) left most of the 900-episode budget at
+  # high exploration and the validation curve never stabilized; 150k steps
+  # (roughly episode 400 at ~380 transitions/episode) leaves ~500 episodes
+  # in the low-exploration phase for policy convergence (fixed before any
+  # test-suite evaluation).
+  epsilon_decay_steps: 150000
+
+validation:
+  every_episodes: 40
+  epsilon: 0.0
+  scenarios:
+    - {name: val_bw20_rtt60_q2,  duration_s: 10, bandwidth_mbps: 20, base_rtt_ms: 60,  queue_bdp_factor: 2.0, loss_rate: 0.0,   n_flows: 1, warmup_s: 2.0}
+    - {name: val_bw10_rtt140_q1, duration_s: 10, bandwidth_mbps: 10, base_rtt_ms: 140, queue_bdp_factor: 1.0, loss_rate: 0.0,   n_flows: 1, warmup_s: 2.0}
+    - {name: val_bw40_rtt20_q05, duration_s: 10, bandwidth_mbps: 40, base_rtt_ms: 20,  queue_bdp_factor: 0.5, loss_rate: 0.002, n_flows: 1, warmup_s: 2.0}
+    - {name: val_bw20_rtt60_q2_f4, duration_s: 10, bandwidth_mbps: 20, base_rtt_ms: 60, queue_bdp_factor: 2.0, loss_rate: 0.0,   n_flows: 4, warmup_s: 2.0}
