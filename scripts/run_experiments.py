@@ -26,7 +26,7 @@ SUITES = {
 
 DEFAULT_CONTROLLERS = [
     "reno", "cubic", "bbr_like", "vegas_like", "random",
-    "ml_only", "rl_only", "hybrid",
+    "ml_only", "rl_only", "hybrid", "rl_only_nodelay", "rl_only_noloss",
 ]
 
 
@@ -54,7 +54,7 @@ def main():
     ap.add_argument("--seeds", default="0,1,2,3,4")
     ap.add_argument("--workers", type=int, default=12)
     ap.add_argument("--results-dir", default="results")
-    ap.add_argument("--save-series-for", default="hybrid,reno,bbr_like",
+    ap.add_argument("--save-series-for", default="hybrid,rl_only,reno,bbr_like,vegas_like",
                     help="controllers whose per-run time series are persisted")
     ap.add_argument("--experiment-id", default=None)
     args = ap.parse_args()
