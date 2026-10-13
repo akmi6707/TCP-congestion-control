@@ -59,13 +59,18 @@ controllers:
   ablations: [rl_only_nodelay, rl_only_noloss]
 
 training_notes: >
-  The hybrid policy is warm-started from the final rl_only policy (shared
-  18 input weights copied, 3 ML-feature columns zero-initialized) and
-  fine-tuned with epsilon_start=0.3, because the cold-start hybrid DQN
-  collapsed to a frozen constant policy (validation goodput constant across
-  all 22 evaluations; artifact preserved as models/dqn_hybrid_coldstart.pt).
-  This decision was made BEFORE any test-suite evaluation of the hybrid,
-  and both artifacts are retained.
+  Hybrid checkpoint selection history (all decisions made on TRAINING
+  validation only, before any test-suite evaluation): the first two hybrid
+  trainings produced a constant validation score; diagnosed as a controller
+  wiring bug (the factory never connected the DQN policy, so the hybrid
+  silently acted randomly) and fixed with a regression test. After the fix,
+  two candidates were trained in parallel: warm-start (initialized from
+  rl_only, eps_start 0.3, seed 0) with best validation MA3 13.97, and
+  cold-start (seed 1) with best validation MA3 15.78. The best-validation
+  candidate (cold-start seed 1) is selected as THE hybrid
+  (models/dqn_hybrid.pt). All candidates are retained:
+  dqn_hybrid_warmstart.pt, dqn_hybrid_cold.pt (= selected),
+  dqn_hybrid_coldstart.pt (pre-fix, broken wiring).
 
 notes: >
   The primary comparison family is {hybrid} vs {reno, cubic, bbr_like,
