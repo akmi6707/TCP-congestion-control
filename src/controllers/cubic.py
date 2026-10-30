@@ -1,11 +1,4 @@
-"""CUBIC (RFC 8312/9438-style, simplified for the cwnd-only abstraction).
 
-β = 0.7, C = 0.4 (1-segment units scale: C is per second^3 in the RFC's
-scaled form; here K = cbrt(W_max*(1-beta)/C) in seconds with cwnd in
-packets). TCP-friendly estimate in the convex region follows RFC 8312:
-W_tcp(t) = W_loss + 3*(1-beta)/(2-beta) * t/RTT.
-Slow start is used until the first loss / reaching ssthresh.
-"""
 from __future__ import annotations
 
 import math

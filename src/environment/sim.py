@@ -1,44 +1,4 @@
-"""Discrete-time packet-batch TCP dumbbell simulator.
 
-Topology: N senders -> shared bottleneck router (drop-tail FIFO queue) ->
-N receivers, one greedy flow per sender/receiver pair (plus optional
-short-lived flows). The reverse (ACK) path is assumed congestion-free,
-as is standard in dumbbell congestion-control studies.
-
-Model summary (a documented abstraction, not a kernel TCP):
-- Time advances in fixed ticks of ``dt`` (default 5 ms). Each flow may send
-  ``floor(cwnd) - inflight`` new data packets per tick (ACK-clocked, no
-  pacing). Retransmissions are not counted against the window, matching
-  loss-recovery behavior.
-- Packets sent at tick i arrive at the bottleneck queue at tick i + f_steps,
-  where f_steps = base_rtt/(2*dt) (forward propagation delay). Loss at the
-  queue happens on arrival: per-packet random loss with probability p(t)
-  (deterministic given a shared per-tick uniform draw; see utils.rng.loss_count)
-  plus drop-tail overflow, attributed proportionally to arriving batches.
-- Within a batch, lost packets are modeled as one contiguous hole at a
-  position derived from a second shared per-tick uniform draw.
-- Queue service is fluid at rate C(t) (pkts/ms); the queue holds q <= qmax
-  packets. A batch's mean queue wait is (packets_ahead + d/2)/rate, which
-  preserves FIFO delivery order within a flow.
-- Delivered packets reach the receiver at arrival+wait; the receiver advances
-  its cumulative ACK point over in-order data and buffers out-of-order
-  segments; each delivery generates one ACK event carrying the new cumulative
-  point and a duplicate-ACK count for out-of-order packets.
-- ACKs return to the sender after the backward propagation delay. The sender
-  keeps RFC 6298 SRTT/RTTVAR/RTO state (min RTO 200 ms, max 3 s), performs
-  fast retransmit on 3 duplicate ACKs, and NewReno-style retransmission of
-  the next hole on each partial ACK during recovery. Retransmitted segments
-  are RTT-sampled from the retransmission time (timestamps semantics).
-- The controller ONLY chooses cwnd (plus its own ssthresh bookkeeping).
-  All loss-recovery mechanics are identical for every controller, so
-  comparisons isolate the congestion-control policy.
-
-Determinism: given the scenario config and seed, the per-tick link-noise
-uniform draws are fixed, so runs are exactly reproducible. Different
-controllers in one scenario see the same noise sequence at the same times;
-exact packet-level pairing is impossible because sending patterns differ
-(documented limitation).
-"""
 from __future__ import annotations
 
 import math

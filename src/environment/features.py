@@ -1,42 +1,4 @@
-"""Control-interval aggregation and feature extraction for learning controllers.
 
-Learning controllers act every ``interval_ticks`` simulator ticks (default
-5 ticks = 25 ms). This module aggregates per-tick sender-observable
-observations into interval statistics and builds the documented feature
-vector. Everything is computed from sender-visible information only (no
-bottleneck-internal state), and all features are clipped to documented
-ranges; missing values (e.g. no RTT sample yet) mark the vector invalid so
-callers can bootstrap safely.
-
-RL-only feature vector (18 dims, indices fixed; used by the RL-only
-controller; the hybrid appends 3 ML predictions):
-
-  idx name              definition                                   clip
-  0   rate_now          log2(1 + goodput this interval, Mbps)        [0, 25]
-  1   rate_prev         log2(1 + previous interval goodput, Mbps)     [0, 25]
-  2   bw_est            log2(1 + 1s delivered-rate estimate, Mbps)     [0, 25]
-  3   min_rtt           log2(min_rtt_ms / 5.0)                        [-1, 7]
-  4   qd                mean queueing delay this interval / 20 ms     [0, 10]
-  5   qd_ratio          srtt/min_rtt - 1 at interval end              [0, 5]
-  6   cwnd              log2(1 + cwnd, packets)                       [0, 20]
-  7   bdp_est           log2(1 + BDP estimate, packets)               [0, 20]
-  8   cwnd_over_bdp     cwnd / BDP estimate - 1                       [-1, 5]
-  9   inflight_frac     inflight / max(cwnd, 1)                        [0, 1.2]
-  10  loss_flag         1 if any loss event (fast retx) in interval    {0,1}
-  11  dup_frac          dupacks / max(delivered pkts, 1)               [0, 10]
-  12  rto_flag          1 if any RTO in interval                       {0,1}
-  13  utilization       rate_now / max(bw_est, 0.1) - 1                [-1, 1]
-  14  rate_trend        (rate_now - rate_prev)/max(rate_prev, 0.1)    [-1, 1]
-  15  qd_trend          (qd - qd_prev)/20 ms                           [-1, 1]
-  16  prev_action       previous action index / (n_actions-1)          [0, 1]
-  17  prev_reward       previous reward / 5                            [-1, 1]
-
-Hybrid additions (predictions of the CURRENT interval, from the ML model,
-computed at the control point BEFORE the action is chosen):
-  18  pred_qd           predicted mean queueing delay / 20 ms          [0, 10]
-  19  pred_loss_pct    predicted loss fraction x 100 (percent)         [0, 10]
-  20  pred_rate         log2(1 + predicted goodput, Mbps)              [0, 25]
-"""
 from __future__ import annotations
 
 import math

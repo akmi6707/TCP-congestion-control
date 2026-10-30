@@ -1,10 +1,4 @@
-"""Controller registry.
 
-make_controller_factory(name, **kwargs) returns a callable
-``factory(flow_id) -> BaseController`` so that multi-flow scenarios
-instantiate one controller per flow (sharing model/policy objects for the
-learning controllers).
-"""
 from __future__ import annotations
 
 from .base import BaseController

@@ -1,21 +1,6 @@
 """Supervised ML component: next-interval network-state prediction.
 
-Given the RL-only feature vector available at a control point (i.e., built
-from the interval that just closed), three HistGradientBoostingRegressor
-models predict the ABOUT-TO-RUN interval's:
 
-  1. qd_ms      - mean queueing delay (ms)
-  2. loss_sig   - sender-observable loss signal fraction (see features.loss_signal)
-  3. rate_mbps  - delivered goodput (Mbps)
-
-All targets are sender-observable, so the predictor's semantics transfer to
-a real stack. Models are fixed a priori (max_iter=300, lr=0.08, default
-regularization) - no test-set-informed tuning.
-
-Training data comes from logged episodes of the conventional baselines and
-a uniform-random-action controller across the training scenario
-distribution (see training/collect_ml_data.py), with scenario-disjoint
-train/validation splits.
 """
 from __future__ import annotations
 

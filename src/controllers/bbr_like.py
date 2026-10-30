@@ -1,29 +1,4 @@
-"""BBR-inspired model-based controller (NOT kernel BBR; documented divergence).
 
-Core idea (per BBRv1): maintain (1) a windowed-max delivered-bandwidth
-estimate and (2) a min-RTT estimate, then set the send window to
-pacing_gain x BDP estimate.
-
-- Bandwidth estimate: windowed max over the last 40 delivery-rate rounds
-  (each round ~ one RTT). Earlier variants failed three ways, all fixed:
-  (a) a fixed 1 s sliding average lags the startup ramp and locks a low
-  fixed point; (b) probe phases of ~1 RTT alias with the round measurement
-  and lock the filter at its startup value; (c) a 10-round max window
-  lets probe-phase highs age out between probes (spiral-down at low rates).
-  40 rounds (~1-4 s) holds probe highs long enough while still adapting
-  within a few seconds to capacity drops.
-- Startup: gain 2.0 until round-rate growth stalls for 3 consecutive
-  ~RTT rounds.
-- ProbeBW: pacing gains [1.25, 0.75, 1, 1, 1, 1, 1, 1], each phase held for
-  max(2xRTT, 40 ms) so that delivery measurements observe a full phase;
-  the 0.75 drain phase floors the window at 1x BDP (BBR drains the queue,
-  never the pipe).
-- ProbeRTT: every 10 s, hold cwnd = 4 packets for one phase to re-measure.
-
-Divergences from kernel BBR (documented): no packet-level pacing (window
-emulation), running min-RTT (not windowed), single shared bottleneck.
-Responds to RTO (transport collapse) but otherwise ignores loss, like BBR.
-"""
 from __future__ import annotations
 
 import math

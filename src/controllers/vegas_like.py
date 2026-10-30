@@ -1,22 +1,4 @@
-"""Delay-based heuristic baseline (Vegas-family, ms-threshold variant).
 
-Classic TCP Vegas measures the backlog diff = (expected - actual) rate x
-base_rtt in packets with alpha=2 / beta=4 packet tolerances. In this
-simulator's 5 ms-granularity batch model, measured RTT carries a ~1-3 ms
-self-drain floor from per-tick ACK-clock clusters; a packet-based diff then
-equilibrates far below the BDP at high rates (found in Phase-2 debugging).
-This baseline therefore uses the equivalent delay-threshold form: grow the
-window while queueing delay (srtt - min_rtt) < alpha_ms, shrink while >
-beta_ms, adjusting ~1 packet per RTT. Same controller family (delay-driven
-AIMD) with thresholds expressed in the delay domain.
-
-- alpha_ms = 5, beta_ms = 15 (fixed, pre-registered)
-- bootstrap: slow start (cwnd += acked) until the delay signal first
-  exceeds beta_ms or a loss event occurs (exiting after the FIRST RTT
-  sample, as an earlier draft did, leaves a +1/RTT linear ramp that cannot
-  fill a high-BDP pipe within an episode - Phase-3 fix)
-- no multiplicative decrease on isolated loss; RTO collapses the window
-"""
 from __future__ import annotations
 
 from .base import BaseController

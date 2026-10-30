@@ -1,10 +1,4 @@
-"""Controller interface.
 
-A controller instance exists per flow. The simulator owns all transport
-mechanics (loss detection, retransmission, RTO); the controller only decides
-how the congestion window evolves. This makes head-to-head comparisons
-isolate the congestion-control policy.
-"""
 from __future__ import annotations
 
 

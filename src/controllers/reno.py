@@ -1,10 +1,4 @@
-"""TCP Reno: slow start + loss-based AIMD (RFC 5681-style).
 
-Packet units. Slow start exits on the first loss (or when cwnd reaches
-ssthresh). Congestion avoidance grows cwnd by n/cwnd packets per n acks
-(+1 packet per RTT). Fast retransmit: ssthresh = cwnd/2, cwnd = ssthresh.
-RTO: ssthresh = cwnd/2, cwnd = 1 (then slow start).
-"""
 from __future__ import annotations
 
 import math

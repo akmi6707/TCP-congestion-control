@@ -1,33 +1,4 @@
-"""Learning-based controllers: random, RL-only (DQN), hybrid (ML+RL), ML-only.
 
-Action space (pre-registered, bounded by construction):
-  0: cwnd x 0.5        (multiplicative decrease)
-  1: cwnd x 0.8        (mild decrease)
-  2: cwnd x 1.0        (hold)
-  3: cwnd x 1.02       (gentle growth)
-  4: cwnd x 1.1        (growth)
-  5: cwnd x 1.3        (aggressive growth)
-  6: cwnd = 1.0 x BDP estimate   (re-anchor to estimated pipe size)
-  7: cwnd = 1.5 x BDP estimate  (re-anchor high, e.g. after regime change)
-
-cwnd is clipped to [CWND_MIN, CWND_MAX] packets after every action, so no
-unbounded or invalid output is possible. BDP estimate uses the sender-side
-delivered-rate estimate times min-RTT (floor 4 packets).
-
-Bootstrap: until the feature vector is valid (first RTT sample + first
-delivered data), the controller ramps additively (+2 packets per control
-interval) and applies a 0.7 multiplicative backoff on loss events. This is
-part of the controller (identical for all learning variants), not the
-transport.
-
-All learning controllers act on 25 ms control intervals (5 sim ticks) and
-share the same observation/feature pipeline; the ONLY differences are:
-  - random:  actions sampled uniformly (data-collection diversity + floor)
-  - rl_only: state = 18 base features, actions from the DQN policy
-  - hybrid:  state = 18 base features + 3 ML predictions (next-interval
-             queueing delay, loss signal, rate), actions from the DQN policy
-  - ml_only: no RL; sets cwnd from the ML predictions directly
-"""
 from __future__ import annotations
 
 import math
@@ -92,7 +63,7 @@ class _ActionSpace:
 
 
 class LearningController(BaseController):
-    """Shared pipeline for random / rl_only / hybrid controllers."""
+    
 
     def __init__(self, flow_id: int, cfg: Optional[dict] = None,
                  act_fn: Optional[Callable[[np.ndarray], int]] = None,
